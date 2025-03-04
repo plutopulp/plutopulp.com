@@ -6,6 +6,7 @@ import SkillCell from "./SkillCell";
 export interface Skill {
   name: string;
   icon: string;
+  link: string; // URL for more information about the skill
 }
 
 interface SkillsSectionProps {
@@ -35,6 +36,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
             key={skill.name}
             name={skill.name}
             icon={skill.icon}
+            link={skill.link}
             index={index}
             inView={inView}
           />
