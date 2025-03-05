@@ -4,12 +4,7 @@ import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 // Note: Color values used in this component should match those in @/lib/colors.ts
 
-type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "outline"
-  | "ghost"
-  | "learn-more";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -38,7 +33,7 @@ export const Button = ({
 }: ButtonProps) => {
   // Base classes
   const baseClasses =
-    "font-medium rounded-md transition-all duration-300 inline-flex items-center justify-center";
+    "font-medium rounded-md transition-all duration-300 inline-flex items-center justify-center cursor-pointer";
 
   // Size classes
   const sizeClasses = {
@@ -58,20 +53,14 @@ export const Button = ({
 
     // Using primary.DEFAULT (#5893AB) and a very light tint of it
     outline:
-      "bg-transparent border border-[#5893AB] text-[#5893AB] hover:bg-[#EEF5F8]",
+      "bg-transparent border border-[#5893AB] text-[#5893AB] hover:bg-[#5893AB] hover:text-[#EEF5F8]",
 
     // Using gray.lightest (#F9FAFB) and gray.light (#F3F4F6)
     ghost: "bg-transparent hover:bg-[#F3F4F6] text-[#1F2937]",
-
-    // Using primary.DEFAULT (#5893AB) and primary.dark (#47768D)
-    "learn-more":
-      "bg-[#5893AB] hover:bg-[#47768D] text-white text-xl px-10 py-3 font-medium",
   };
 
   // Combine classes
-  const classes = `${baseClasses} ${
-    variant === "learn-more" ? "" : sizeClasses[size]
-  } ${variantClasses[variant]} ${className}`;
+  const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
 
   // If href is provided, render as Link
   if (href) {

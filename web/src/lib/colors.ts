@@ -43,4 +43,12 @@ export const colors = {
     light: "#FFFFFF",
     dark: "#0A0A0A",
   },
+
+  // Gradient backgrounds
+  gradients: {
+    contactForm: {
+      dark: "linear-gradient(180deg, #2D3748 0%, #1A202C 100%)",
+      purple: "linear-gradient(180deg, #4A2D8B 0%, #5D4A9C 100%)",
+    },
+  },
 };
