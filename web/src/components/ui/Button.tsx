@@ -67,11 +67,7 @@ export const Button = ({
     return (
       <Link href={href} className={`${classes} group`}>
         <span>{children}</span>
-        {rightIcon && (
-          <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
-            {rightIcon}
-          </span>
-        )}
+        {rightIcon && <span className="ml-2">{rightIcon}</span>}
       </Link>
     );
   }
@@ -80,11 +76,7 @@ export const Button = ({
   return (
     <button className={`${classes} group`} {...props}>
       <span>{children}</span>
-      {rightIcon && (
-        <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
-          {rightIcon}
-        </span>
-      )}
+      {rightIcon && <span className="ml-2">{rightIcon}</span>}
     </button>
   );
 };
