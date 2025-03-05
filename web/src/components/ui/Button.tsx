@@ -4,7 +4,7 @@ import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 // Note: Color values used in this component should match those in @/lib/colors.ts
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

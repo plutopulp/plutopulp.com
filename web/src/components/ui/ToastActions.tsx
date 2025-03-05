@@ -2,14 +2,14 @@
 
 import React from "react";
 import type { ActionType, ToastAction } from "@/lib/toast";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonVariant } from "@/components/ui/Button";
 import { notify } from "@/lib/toast";
 
 // Maps action types to Button variants
 const getButtonProps = (
   actionType: ActionType = "primary"
 ): {
-  variant: "primary" | "secondary" | "outline" | "ghost" | "learn-more";
+  variant: ButtonVariant;
   className?: string;
 } => {
   switch (actionType) {

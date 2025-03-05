@@ -44,11 +44,11 @@ export const colors = {
     dark: "#0A0A0A",
   },
 
-  // Gradient backgrounds
-  gradients: {
-    contactForm: {
-      dark: "linear-gradient(180deg, #2D3748 0%, #1A202C 100%)",
-      purple: "linear-gradient(180deg, #4A2D8B 0%, #5D4A9C 100%)",
-    },
+  // Spiral circles animation colors
+  spiral: {
+    magenta: "#AC2CACff",
+    blue: "#257795ff",
+    purple: "#4C4CD5ff",
+    circleBase: "rgba(255, 255, 255, 0.5)", // Semi-transparent white
   },
 };
