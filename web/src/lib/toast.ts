@@ -189,3 +189,49 @@ export const notify = {
   dismiss: dismissToast,
   dismissAll: dismissAllToasts,
 };
+
+/**
+ * Testing helpers - only available in test environments
+ * These are automatically tree-shaken in production builds
+ */
+if (process.env.NODE_ENV === "test") {
+  Object.assign(notify, {
+    /**
+     * Mock all toast methods for testing
+     */
+    __mock: () => {
+      const originalNotify = { ...notify };
+      const mock = {
+        success: jest.fn(),
+        error: jest.fn(),
+        info: jest.fn(),
+        warning: jest.fn(),
+        loading: jest.fn().mockReturnValue({
+          success: jest.fn(),
+          error: jest.fn(),
+          dismiss: jest.fn(),
+          id: "mock-loading-id",
+        }),
+        confirm: jest.fn(),
+        dismiss: jest.fn(),
+        dismissAll: jest.fn(),
+      };
+
+      // Replace all methods with mocks
+      Object.keys(mock).forEach((key) => {
+        // @ts-expect-error - Dynamic mocking for tests
+        notify[key] = mock[key];
+      });
+
+      return {
+        // Restore original methods
+        restore: () => {
+          Object.keys(originalNotify).forEach((key) => {
+            // @ts-expect-error - Dynamic restoration for tests
+            notify[key] = originalNotify[key];
+          });
+        },
+      };
+    },
+  });
+}
