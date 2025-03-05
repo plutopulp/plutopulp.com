@@ -4,7 +4,7 @@ import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 // Note: Color values used in this component should match those in @/lib/colors.ts
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -67,11 +67,7 @@ export const Button = ({
     return (
       <Link href={href} className={`${classes} group`}>
         <span>{children}</span>
-        {rightIcon && (
-          <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
-            {rightIcon}
-          </span>
-        )}
+        {rightIcon && <span className="ml-2">{rightIcon}</span>}
       </Link>
     );
   }
@@ -80,11 +76,7 @@ export const Button = ({
   return (
     <button className={`${classes} group`} {...props}>
       <span>{children}</span>
-      {rightIcon && (
-        <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
-          {rightIcon}
-        </span>
-      )}
+      {rightIcon && <span className="ml-2">{rightIcon}</span>}
     </button>
   );
 };

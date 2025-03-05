@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { ChevronDownIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { notify, ActionType } from "@/lib/toast";
 import ToastActions from "@/components/ui/ToastActions";
+import SpiralCircles from "@/components/landing/SpiralCircles";
 
 export default function ComponentsPage() {
   // State for form clearing example
@@ -411,7 +412,7 @@ export default function ComponentsPage() {
       <section className="p-10 bg-gray-100 rounded-lg mb-10">
         <h2 className="text-xl font-semibold mb-4">Learn More Button</h2>
         <div className="flex justify-center">
-          <Button variant="learn-more">Learn More</Button>
+          <Button variant="primary">Learn More</Button>
         </div>
       </section>
 
@@ -449,6 +450,21 @@ export default function ComponentsPage() {
               Lightest / Light / Default / Darkest
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Spiral Circles Demo */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-4">Spiral Circles Animation</h2>
+        <p className="mb-4">
+          This component renders animated circles that move in spiral patterns,
+          recreating the original portfolio animation with dynamically generated
+          CSS. The animation keyframes are created at runtime using JavaScript
+          to generate all angle and twist combinations.
+        </p>
+
+        <div className="relative w-full h-[1000px] border rounded-lg overflow-hidden bg-gray-800">
+          <SpiralCircles />
         </div>
       </section>
     </main>
