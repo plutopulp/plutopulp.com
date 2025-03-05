@@ -7,7 +7,6 @@ import FormTextArea from "./FormTextArea";
 import { Button } from "@/components/ui/Button";
 import { validationRules } from "@/lib/validation";
 import { notify } from "@/lib/toast";
-import ToastActions from "@/components/ui/ToastActions";
 
 type FormInputs = {
   name: string;
@@ -68,7 +67,7 @@ export const ContactForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-2xl p-8 rounded-lg bg-gradient-to-b from-[#5893AB] to-[#AC2CACff] text-white"
+      className="w-full max-w-2xl p-8 rounded-lg bg-gradient-to-b from-[#5893AB]/60 to-[#AC2CACff]/60 text-white"
       noValidate
     >
       <FormInput
@@ -112,42 +111,8 @@ export const ContactForm = () => {
       <div className="flex justify-between items-center mt-6">
         <button
           type="button"
-          onClick={() => {
-            // Use our toast confirmation dialog instead of window.confirm
-            const actions = [
-              {
-                label: "Yes, Clear",
-                onClick: () => {
-                  reset();
-                  notify.success("Form cleared", {
-                    description: "All form fields have been reset.",
-                  });
-                  // Toast will be automatically dismissed
-                },
-                actionType: "danger" as const,
-                // This action will automatically close the toast (default behavior)
-              },
-              {
-                label: "Cancel",
-                onClick: () => {
-                  // Toast will be automatically dismissed
-                },
-                actionType: "secondary" as const,
-                // This action will automatically close the toast (default behavior)
-              },
-            ];
-
-            notify.confirm("Clear Form", {
-              actions: actions,
-              description: (
-                <ToastActions
-                  description="Are you sure you want to clear all form data? This action cannot be undone."
-                  actions={actions}
-                />
-              ),
-            });
-          }}
-          className="text-sm text-gray-300 hover:text-white underline"
+          onClick={() => reset()}
+          className="text-sm text-gray-300 hover:text-white underline cursor-pointer"
         >
           Clear form
         </button>
