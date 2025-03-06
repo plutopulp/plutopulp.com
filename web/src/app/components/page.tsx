@@ -6,6 +6,8 @@ import { ChevronDownIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { notify, ActionType } from "@/lib/toast";
 import ToastActions from "@/components/ui/ToastActions";
 import SpiralCircles from "@/components/landing/SpiralCircles";
+import ProjectCard from "@/components/projects/ProjectCard";
+import { projectsData } from "@/components/projects/projectsData";
 
 export default function ComponentsPage() {
   // State for form clearing example
@@ -125,6 +127,9 @@ export default function ComponentsPage() {
       ),
     });
   };
+
+  // Sample project from projectsData for demonstration
+  const sampleProject = projectsData[0];
 
   return (
     <main className="container mx-auto py-10 px-4">
@@ -465,6 +470,37 @@ export default function ComponentsPage() {
 
         <div className="relative w-full h-[1000px] border rounded-lg overflow-hidden bg-gray-800">
           <SpiralCircles />
+        </div>
+      </section>
+      {/* Project Card Section */}
+      <section className="mb-16 p-6 border rounded-lg">
+        <h2 className="text-xl font-bold mb-6">Project Card</h2>
+        <p className="mb-4">
+          Project card component used in the projects section. Utilizes the
+          centralized skills system.
+        </p>
+
+        <div className="max-w-md mx-auto">
+          <ProjectCard project={sampleProject} />
+        </div>
+
+        <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <h3 className="font-semibold mb-2">Component Notes:</h3>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>
+              Project data is stored with skill IDs rather than embedded skill
+              objects
+            </li>
+            <li>
+              Skills are referenced from a central repository in{" "}
+              <code>lib/skills.ts</code>
+            </li>
+            <li>This allows consistent skill display across the application</li>
+            <li>
+              The design matches the original portfolio with subtle styling
+              enhancements
+            </li>
+          </ul>
         </div>
       </section>
     </main>
