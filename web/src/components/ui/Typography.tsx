@@ -64,3 +64,56 @@ export const Typography = ({
     </Component>
   );
 };
+
+interface SimpleTypographyProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export function Heading1({ children, className }: SimpleTypographyProps) {
+  return (
+    <Typography variant="h1" className={className}>
+      {children}
+    </Typography>
+  );
+}
+
+export function Heading2({ children, className }: SimpleTypographyProps) {
+  return (
+    <Typography variant="h2" className={className}>
+      {children}
+    </Typography>
+  );
+}
+
+export function Heading3({ children, className }: SimpleTypographyProps) {
+  return (
+    <Typography variant="h3" className={className}>
+      {children}
+    </Typography>
+  );
+}
+
+export function Paragraph({ children, className }: SimpleTypographyProps) {
+  return (
+    <Typography variant="body" className={className}>
+      {children}
+    </Typography>
+  );
+}
+
+export function Caption({ children, className }: SimpleTypographyProps) {
+  return (
+    <Typography variant="caption" className={className}>
+      {children}
+    </Typography>
+  );
+}
+
+export function TechStack({ children, className }: SimpleTypographyProps) {
+  return (
+    <Typography variant="body" className={cn("font-medium", className)}>
+      {children}
+    </Typography>
+  );
+}
