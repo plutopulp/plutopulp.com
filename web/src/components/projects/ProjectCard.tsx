@@ -1,20 +1,23 @@
 "use client";
 import { useHover } from "@uidotdev/usehooks";
+import { useState } from "react";
 import Image from "next/image";
-import { Project } from "./types";
+import { ProjectCardProps } from "@/types/project";
 import { Heading2, TechStack } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-
-interface ProjectCardProps {
-  project: Project;
-}
+import { ProjectModal } from "./ProjectModal";
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const [ref, isHovered] = useHover();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLearnMore = () => {
-    console.log("Learn more clicked for:", project.title);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   // Common transition classes
@@ -24,75 +27,84 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const absoluteClasses = "absolute top-0 w-full h-full z-10";
 
   return (
-    <div ref={ref} className="relative w-full h-full">
-      {/* Title - slides down on hover */}
-      <div
-        className={cn(
-          absoluteClasses,
-          transitionClasses,
-          isHovered ? "opacity-100" : "opacity-0"
-        )}
-        style={{
-          transform: isHovered ? "translateY(25%)" : "translateY(0%)",
-        }}
-      >
-        <Heading2 className="text-center font-bold">{project.title}</Heading2>
-      </div>
+    <>
+      <div ref={ref} className="relative w-full h-full">
+        {/* Title - slides down on hover */}
+        <div
+          className={cn(
+            absoluteClasses,
+            transitionClasses,
+            isHovered ? "opacity-100" : "opacity-0"
+          )}
+          style={{
+            transform: isHovered ? "translateY(25%)" : "translateY(0%)",
+          }}
+        >
+          <Heading2 className="text-center font-bold">{project.title}</Heading2>
+        </div>
 
-      {/* Tech stack - slides down on hover */}
-      <div
-        className={cn(
-          absoluteClasses,
-          transitionClasses,
-          isHovered ? "opacity-100" : "opacity-0"
-        )}
-        style={{
-          transform: isHovered ? "translateY(40%)" : "translateY(0%)",
-        }}
-      >
-        <TechStack className="text-center text-[#4c4cd580] font-semibold">
-          {project.technologies.brief.join(" - ")}
-        </TechStack>
-      </div>
+        {/* Tech stack - slides down on hover */}
+        <div
+          className={cn(
+            absoluteClasses,
+            transitionClasses,
+            isHovered ? "opacity-100" : "opacity-0"
+          )}
+          style={{
+            transform: isHovered ? "translateY(40%)" : "translateY(0%)",
+          }}
+        >
+          <TechStack className="text-center text-[#4c4cd580] font-semibold">
+            {project.technologies.brief.join(" - ")}
+          </TechStack>
+        </div>
 
-      {/* Image container - fades out on hover */}
-      <div
-        className={cn(
-          "relative",
-          transitionClasses,
-          isHovered ? "opacity-0" : "opacity-100"
-        )}
-      >
-        {/* Outer card frame */}
-        <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden p-3 md:p-4">
-          {/* Inner image container */}
-          <div className="bg-gray-50 aspect-[4/3] rounded-md overflow-hidden relative">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover w-full h-full" /* Using object-cover to fill while maintaining aspect ratio */
-              priority
-            />
+        {/* Image container - fades out on hover */}
+        <div
+          className={cn(
+            "relative",
+            transitionClasses,
+            isHovered ? "opacity-0" : "opacity-100"
+          )}
+        >
+          {/* Outer card frame */}
+          <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden p-3 md:p-4">
+            {/* Inner image container */}
+            <div className="bg-gray-50 aspect-[4/3] rounded-md overflow-hidden relative">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover w-full h-full" /* Using object-cover to fill while maintaining aspect ratio */
+                priority
+              />
+            </div>
           </div>
+        </div>
+
+        {/* Button - slides up on hover */}
+        <div
+          className={cn(
+            "absolute top-full w-full h-[10%] z-10 flex justify-center",
+            transitionClasses,
+            isHovered ? "opacity-100" : "opacity-0"
+          )}
+          style={{
+            transform: isHovered ? "translateY(-400%)" : "translateY(0%)",
+          }}
+        >
+          <Button onClick={handleLearnMore} variant="primary" size="md">
+            Learn More
+          </Button>
         </div>
       </div>
 
-      {/* Button - slides up on hover */}
-      <div
-        className={cn(
-          "absolute top-full w-full h-[10%] z-10 flex justify-center",
-          transitionClasses,
-          isHovered ? "opacity-100" : "opacity-0"
-        )}
-        style={{
-          transform: isHovered ? "translateY(-400%)" : "translateY(0%)",
-        }}
-      >
-        <Button onClick={handleLearnMore} variant="primary" size="md">
-          Learn More
-        </Button>
-      </div>
-    </div>
+      {/* Project modal */}
+      <ProjectModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        project={project}
+      />
+    </>
   );
 }
