@@ -1,8 +1,14 @@
+/**
+ * Technology used in a project
+ */
 export interface Technology {
   title: string;
   icon: string;
 }
 
+/**
+ * External links for projects
+ */
 export interface Anchor {
   name: string;
   href: string | null;
@@ -10,6 +16,9 @@ export interface Anchor {
   color?: string;
 }
 
+/**
+ * Media for project sliders
+ */
 export interface SliderMedia {
   source: string;
   type: "image" | "video";
@@ -17,6 +26,9 @@ export interface SliderMedia {
   caption: string;
 }
 
+/**
+ * Project data structure
+ */
 export interface Project {
   id: string;
   title: string;
@@ -31,4 +43,20 @@ export interface Project {
   anchors: Anchor[];
   image: string;
   sliderMedia: SliderMedia[];
+}
+
+/**
+ * Props for project card component
+ */
+export interface ProjectCardProps {
+  project: Project;
+}
+
+/**
+ * Props for project modal component
+ */
+export interface ProjectModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  project: Project;
 }

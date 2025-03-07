@@ -3,17 +3,10 @@ import { Fragment, ReactNode } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Heading3 } from "@/components/ui/Typography";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-  title?: string;
-  size?: "sm" | "md" | "lg" | "xl";
-}
+import { ModalProps, ComponentSize } from "@/types/ui";
 
 // Size classes for various modal sizes
-const SIZE_CLASSES = {
+const SIZE_CLASSES: Record<ComponentSize, string> = {
   sm: "max-w-sm",
   md: "max-w-xl",
   lg: "max-w-3xl",
