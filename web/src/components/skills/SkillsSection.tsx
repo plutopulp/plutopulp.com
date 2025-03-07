@@ -20,8 +20,8 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   inView = false,
 }) => {
   return (
-    <div className="p-8">
-      <h3 className="text-2xl font-light mb-10 text-center text-gray-700">
+    <div className="py-4 px-4">
+      <h3 className="text-2xl font-light mb-8 text-center text-gray-700">
         {title}
       </h3>
 

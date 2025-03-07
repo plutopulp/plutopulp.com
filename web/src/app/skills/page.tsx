@@ -1,10 +1,10 @@
 import React from "react";
-import Skills from "@/components/skills/Skills";
+import SkillsSectionComponent from "@/components/sections/SkillsSection";
 
 export default function SkillsPage() {
   return (
-    <main className="min-h-screen bg-white">
-      <Skills />
+    <main className="min-h-screen">
+      <SkillsSectionComponent />
     </main>
   );
 }

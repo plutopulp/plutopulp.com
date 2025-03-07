@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ContactSection from "@/components/contact/ContactSection";
+import ContactSectionWrapper from "@/components/sections/ContactSection";
 
 export const metadata: Metadata = {
   title: "Contact | Pluto Pulp",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="min-h-screen">
-      <ContactSection />
+      <ContactSectionWrapper />
     </main>
   );
 }
