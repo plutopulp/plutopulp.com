@@ -11,19 +11,24 @@ export const palette = {
     light: "#5893AB",
     medium: "#47768D",
     dark: "#345667",
-    darkest: "#257795",
+    darkest: "#257795", // Backend color
   },
 
   // Purples
   purple: {
     light: "#a3a3ff",
-    medium: "#4C4CD5",
+    medium: "#4C4CD5", // DevOps color
     dark: "#2f303a",
   },
 
   // Magentas
   magenta: {
-    DEFAULT: "#AC2CAC",
+    DEFAULT: "#AC2CAC", // Frontend color
+  },
+
+  // Orange
+  orange: {
+    DEFAULT: "#E08A3A", // Other color
   },
 
   // Grays
@@ -147,5 +152,13 @@ export const colors = {
     skills: palette.white,
     projects: "#F2F6F8", // Light blue-gray
     contact: palette.purple.dark,
+  },
+
+  // Skill category colors
+  skills: {
+    backend: palette.blue.darkest, // #257795
+    frontend: palette.magenta.DEFAULT, // #AC2CAC
+    devops: palette.purple.medium, // #4C4CD5
+    other: palette.orange.DEFAULT, // #E08A3A
   },
 };

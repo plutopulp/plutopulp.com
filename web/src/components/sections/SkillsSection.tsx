@@ -51,7 +51,7 @@ const SkillsSectionComponent: React.FC = () => {
       fullHeight={true}
     >
       <div className="grid md:grid-cols-2 gap-0 max-w-5xl mx-auto">
-        {/* Languages Section */}
+        {/* Languages Section - Map to "other" category for now */}
         <motion.div
           ref={languagesRef}
           className="md:border-r md:border-b border-gray-100"
@@ -63,6 +63,7 @@ const SkillsSectionComponent: React.FC = () => {
             title="Languages"
             skills={skillsData.languages}
             inView={languagesInView}
+            category="other"
           />
         </motion.div>
 
@@ -78,6 +79,7 @@ const SkillsSectionComponent: React.FC = () => {
             title="Backend"
             skills={skillsData.backend}
             inView={backendInView}
+            category="backend"
           />
         </motion.div>
 
@@ -93,10 +95,11 @@ const SkillsSectionComponent: React.FC = () => {
             title="Frontend"
             skills={skillsData.frontend}
             inView={frontendInView}
+            category="frontend"
           />
         </motion.div>
 
-        {/* Other Section */}
+        {/* Other Section - Map to "devops" category for now */}
         <motion.div
           ref={otherRef}
           variants={sectionVariants}
@@ -107,6 +110,7 @@ const SkillsSectionComponent: React.FC = () => {
             title="Other"
             skills={skillsData.other}
             inView={otherInView}
+            category="devops"
           />
         </motion.div>
       </div>

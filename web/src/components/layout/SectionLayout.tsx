@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { Heading1 } from "@/components/ui/Typography";
+import { getContrastText } from "@/lib/utils";
 
 interface SectionLayoutProps {
   id: string;
@@ -28,6 +29,13 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
   className = "",
   fullHeight = true, // Default to full height
 }) => {
+  // Get the appropriate text color based on background
+  const textColorClass = getContrastText(
+    backgroundColor,
+    "text-gray-800",
+    "text-white"
+  );
+
   return (
     <section
       id={id}
@@ -40,7 +48,9 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
     >
       <div className={`container mx-auto px-4 ${className}`}>
         {title && (
-          <Heading1 className="text-center mb-14 uppercase tracking-wider">
+          <Heading1
+            className={`text-center mb-14 uppercase tracking-wider ${textColorClass}`}
+          >
             {title}
           </Heading1>
         )}
