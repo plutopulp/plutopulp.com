@@ -1,4 +1,4 @@
-import { projectsData } from "./projectsData";
+import { projectsData } from "../../lib/projects";
 import ProjectCard from "./ProjectCard";
 
 export default function ProjectsGrid() {

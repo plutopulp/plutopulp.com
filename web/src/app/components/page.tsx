@@ -7,7 +7,7 @@ import { notify, ActionType } from "@/lib/toast";
 import ToastActions from "@/components/ui/ToastActions";
 import SpiralCircles from "@/components/landing/SpiralCircles";
 import ProjectCard from "@/components/projects/ProjectCard";
-import { projectsData } from "@/components/projects/projectsData";
+import { projectsData } from "@/lib/projects";
 
 export default function ComponentsPage() {
   // State for form clearing example
