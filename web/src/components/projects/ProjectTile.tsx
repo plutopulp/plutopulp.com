@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { ProjectModal } from "./ProjectModal";
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectTile({ project }: ProjectCardProps) {
   const [ref, isHovered] = useHover();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -6,7 +6,12 @@ import ContactForm from "@/components/contact/ContactForm";
 
 const ContactSectionWrapper: React.FC = () => {
   return (
-    <SectionLayout id="contact" backgroundColor="white" title="Contact">
+    <SectionLayout
+      id="contact"
+      backgroundColor="white"
+      title="Contact"
+      fullHeight={true}
+    >
       <div className="flex justify-center">
         <ContactForm />
       </div>

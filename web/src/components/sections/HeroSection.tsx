@@ -19,7 +19,7 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="hero">
+    <section id="hero" className="min-h-screen">
       <div className="relative min-h-screen bg-gray-900 overflow-hidden">
         {/* SpiralCircles background */}
         <div className="absolute inset-0 z-0">

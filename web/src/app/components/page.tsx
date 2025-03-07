@@ -6,7 +6,7 @@ import { ChevronDownIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { notify, ActionType } from "@/lib/toast";
 import ToastActions from "@/components/ui/ToastActions";
 import SpiralCircles from "@/components/landing/SpiralCircles";
-import ProjectCard from "@/components/projects/ProjectCard";
+import ProjectCard from "@/components/projects/ProjectTile";
 import { projectsData } from "@/lib/projects";
 
 export default function ComponentsPage() {

@@ -22,7 +22,12 @@ const AboutSection: React.FC = () => {
   const bgColor = "#f5f5f5";
 
   return (
-    <SectionLayout id="about" backgroundColor={bgColor} title="About">
+    <SectionLayout
+      id="about"
+      backgroundColor={bgColor}
+      title="About"
+      fullHeight={true}
+    >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         {/* Text content */}
         <div className="md:col-span-7">

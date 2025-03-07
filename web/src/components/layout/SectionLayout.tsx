@@ -7,6 +7,7 @@ interface SectionLayoutProps {
   children: ReactNode;
   backgroundColor?: string;
   className?: string;
+  fullHeight?: boolean; // Optional prop to force full height regardless of content
 }
 
 /**
@@ -17,6 +18,7 @@ interface SectionLayoutProps {
  * - Consistent padding
  * - Centered content with max-width
  * - Optional title with standardized typography
+ * - Min-height of viewport on larger screens
  */
 const SectionLayout: React.FC<SectionLayoutProps> = ({
   id,
@@ -24,9 +26,18 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
   children,
   backgroundColor = "white",
   className = "",
+  fullHeight = true, // Default to full height
 }) => {
   return (
-    <section id={id} className="py-16 w-full" style={{ backgroundColor }}>
+    <section
+      id={id}
+      className={`py-16 w-full ${
+        fullHeight
+          ? "md:min-h-screen md:flex md:flex-col md:justify-center"
+          : ""
+      }`}
+      style={{ backgroundColor }}
+    >
       <div className={`container mx-auto px-4 ${className}`}>
         {title && (
           <Heading1 className="text-center mb-14 uppercase tracking-wider">

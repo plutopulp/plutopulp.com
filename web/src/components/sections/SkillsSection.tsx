@@ -43,7 +43,12 @@ const SkillsSectionComponent: React.FC = () => {
   const otherInView = useInView(otherRef, { once: true, amount: 0.2 });
 
   return (
-    <SectionLayout id="skills" backgroundColor="#ffffff" title="Skills">
+    <SectionLayout
+      id="skills"
+      backgroundColor="#ffffff"
+      title="Skills"
+      fullHeight={true}
+    >
       <div className="grid md:grid-cols-2 gap-0 max-w-5xl mx-auto">
         {/* Languages Section */}
         <motion.div
