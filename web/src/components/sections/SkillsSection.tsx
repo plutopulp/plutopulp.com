@@ -9,9 +9,9 @@ import { colors } from "@/lib/colors";
 
 // Use the predefined skill groups from the skills.ts library
 const skillsData = {
-  languages: skillGroups.languages,
-  backend: skillGroups.backend,
   frontend: skillGroups.frontend,
+  backend: skillGroups.backend,
+  devops: skillGroups.devops,
   other: skillGroups.other,
 };
 
@@ -32,15 +32,15 @@ const sectionVariants = {
 
 const SkillsSectionComponent: React.FC = () => {
   // Individual refs for each section
-  const languagesRef = useRef(null);
-  const backendRef = useRef(null);
   const frontendRef = useRef(null);
+  const backendRef = useRef(null);
+  const devopsRef = useRef(null);
   const otherRef = useRef(null);
 
   // Individual inView states for each section
-  const languagesInView = useInView(languagesRef, { once: true, amount: 0.2 });
-  const backendInView = useInView(backendRef, { once: true, amount: 0.2 });
   const frontendInView = useInView(frontendRef, { once: true, amount: 0.2 });
+  const backendInView = useInView(backendRef, { once: true, amount: 0.2 });
+  const devopsInView = useInView(devopsRef, { once: true, amount: 0.2 });
   const otherInView = useInView(otherRef, { once: true, amount: 0.2 });
 
   return (
@@ -51,19 +51,19 @@ const SkillsSectionComponent: React.FC = () => {
       fullHeight={true}
     >
       <div className="grid md:grid-cols-2 gap-0 max-w-5xl mx-auto">
-        {/* Languages Section - Map to "other" category for now */}
+        {/* Frontend Section */}
         <motion.div
-          ref={languagesRef}
+          ref={frontendRef}
           className="md:border-r md:border-b border-gray-100"
           variants={sectionVariants}
           initial="hidden"
-          animate={languagesInView ? "visible" : "hidden"}
+          animate={frontendInView ? "visible" : "hidden"}
         >
           <SkillsSection
-            title="Languages"
-            skills={skillsData.languages}
-            inView={languagesInView}
-            category="other"
+            title="Frontend"
+            skills={skillsData.frontend}
+            inView={frontendInView}
+            category="frontend"
           />
         </motion.div>
 
@@ -83,23 +83,23 @@ const SkillsSectionComponent: React.FC = () => {
           />
         </motion.div>
 
-        {/* Frontend Section */}
+        {/* DevOps Section */}
         <motion.div
-          ref={frontendRef}
+          ref={devopsRef}
           className="md:border-r border-gray-100"
           variants={sectionVariants}
           initial="hidden"
-          animate={frontendInView ? "visible" : "hidden"}
+          animate={devopsInView ? "visible" : "hidden"}
         >
           <SkillsSection
-            title="Frontend"
-            skills={skillsData.frontend}
-            inView={frontendInView}
-            category="frontend"
+            title="DevOps"
+            skills={skillsData.devops}
+            inView={devopsInView}
+            category="devops"
           />
         </motion.div>
 
-        {/* Other Section - Map to "devops" category for now */}
+        {/* Other Section */}
         <motion.div
           ref={otherRef}
           variants={sectionVariants}
@@ -110,7 +110,7 @@ const SkillsSectionComponent: React.FC = () => {
             title="Other"
             skills={skillsData.other}
             inView={otherInView}
-            category="devops"
+            category="other"
           />
         </motion.div>
       </div>

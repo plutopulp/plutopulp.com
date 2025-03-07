@@ -12,13 +12,7 @@ export interface Skill {
  * All skills defined in a single place for reuse across the application
  */
 export const skills: Record<string, Skill> = {
-  // Languages
-  python: {
-    id: "python",
-    name: "Python",
-    icon: "python.svg",
-    link: "https://docs.python.org/",
-  },
+  // Frontend related
   javascript: {
     id: "javascript",
     name: "JavaScript",
@@ -31,76 +25,6 @@ export const skills: Record<string, Skill> = {
     icon: "typescript.svg",
     link: "https://www.typescriptlang.org/docs/",
   },
-  c: {
-    id: "c",
-    name: "C",
-    icon: "c.svg",
-    link: "https://en.cppreference.com/w/c",
-  },
-  php: {
-    id: "php",
-    name: "PHP",
-    icon: "php.svg",
-    link: "https://www.php.net/docs.php",
-  },
-  bash: {
-    id: "bash",
-    name: "BASH",
-    icon: "bash.svg",
-    link: "https://www.gnu.org/software/bash/manual/bash.html",
-  },
-
-  // Backend
-  django: {
-    id: "django",
-    name: "Django",
-    icon: "django.svg",
-    link: "https://www.djangoproject.com/",
-  },
-  restapi: {
-    id: "restapi",
-    name: "REST APIs",
-    icon: "restAPI.png",
-    link: "https://restfulapi.net/",
-  },
-  docker: {
-    id: "docker",
-    name: "Docker",
-    icon: "docker.png",
-    link: "https://docs.docker.com/",
-  },
-  celery: {
-    id: "celery",
-    name: "Celery",
-    icon: "celery.svg",
-    link: "https://docs.celeryq.dev/",
-  },
-  postgresql: {
-    id: "postgresql",
-    name: "PostgreSQL",
-    icon: "postgresql.svg",
-    link: "https://www.postgresql.org/docs/",
-  },
-  mysql: {
-    id: "mysql",
-    name: "MySQL",
-    icon: "mySQL.svg",
-    link: "https://dev.mysql.com/doc/",
-  },
-  rabbitmq: {
-    id: "rabbitmq",
-    name: "RabbitMQ",
-    icon: "rabbitmq.svg",
-    link: "https://www.rabbitmq.com/documentation.html",
-  },
-  spacy: {
-    id: "spacy",
-    name: "SpaCy",
-    icon: "spacy.svg",
-    link: "https://spacy.io/usage",
-  },
-
-  // Frontend
   html: {
     id: "html",
     name: "HTML-5",
@@ -155,8 +79,76 @@ export const skills: Record<string, Skill> = {
     icon: "d3js.svg",
     link: "https://d3js.org/",
   },
+  figma: {
+    id: "figma",
+    name: "Figma",
+    icon: "figma.svg",
+    link: "https://help.figma.com/",
+  },
 
-  // Other
+  // Backend related
+  python: {
+    id: "python",
+    name: "Python",
+    icon: "python.svg",
+    link: "https://docs.python.org/",
+  },
+  php: {
+    id: "php",
+    name: "PHP",
+    icon: "php.svg",
+    link: "https://www.php.net/docs.php",
+  },
+  django: {
+    id: "django",
+    name: "Django",
+    icon: "django.svg",
+    link: "https://www.djangoproject.com/",
+  },
+  restapi: {
+    id: "restapi",
+    name: "REST APIs",
+    icon: "restAPI.png",
+    link: "https://restfulapi.net/",
+  },
+  celery: {
+    id: "celery",
+    name: "Celery",
+    icon: "celery.svg",
+    link: "https://docs.celeryq.dev/",
+  },
+  postgresql: {
+    id: "postgresql",
+    name: "PostgreSQL",
+    icon: "postgresql.svg",
+    link: "https://www.postgresql.org/docs/",
+  },
+  mysql: {
+    id: "mysql",
+    name: "MySQL",
+    icon: "mySQL.svg",
+    link: "https://dev.mysql.com/doc/",
+  },
+  rabbitmq: {
+    id: "rabbitmq",
+    name: "RabbitMQ",
+    icon: "rabbitmq.svg",
+    link: "https://www.rabbitmq.com/documentation.html",
+  },
+  spacy: {
+    id: "spacy",
+    name: "SpaCy",
+    icon: "spacy.svg",
+    link: "https://spacy.io/usage",
+  },
+
+  // DevOps related
+  docker: {
+    id: "docker",
+    name: "Docker",
+    icon: "docker.png",
+    link: "https://docs.docker.com/",
+  },
   linux: {
     id: "linux",
     name: "Linux",
@@ -175,6 +167,20 @@ export const skills: Record<string, Skill> = {
     icon: "heroku.svg",
     link: "https://devcenter.heroku.com/",
   },
+  bash: {
+    id: "bash",
+    name: "BASH",
+    icon: "bash.svg",
+    link: "https://www.gnu.org/software/bash/manual/bash.html",
+  },
+
+  // Other skills
+  c: {
+    id: "c",
+    name: "C",
+    icon: "c.svg",
+    link: "https://en.cppreference.com/w/c",
+  },
   latex: {
     id: "latex",
     name: "LaTeX",
@@ -187,46 +193,25 @@ export const skills: Record<string, Skill> = {
     icon: "gnuplot.svg",
     link: "http://gnuplot.info/documentation.html",
   },
-  figma: {
-    id: "figma",
-    name: "Figma",
-    icon: "figma.svg",
-    link: "https://help.figma.com/",
-  },
 };
 
 /**
  * Skill groups that can be customized/renamed without changing the underlying skills
  */
 export type SkillGroupName =
-  | "languages"
-  | "backend"
   | "frontend"
+  | "backend"
+  | "devops"
   | "other"
   | string;
 
 /**
- * Predefined skill groups - can be changed or extended as needed
+ * Predefined skill groups - organized by category
  */
 export const skillGroups: Record<SkillGroupName, Skill[]> = {
-  languages: [
-    skills.python,
+  frontend: [
     skills.javascript,
     skills.typescript,
-    skills.c,
-    skills.php,
-    skills.bash,
-  ],
-  backend: [
-    skills.django,
-    skills.restapi,
-    skills.docker,
-    skills.celery,
-    skills.postgresql,
-    skills.mysql,
-    skills.rabbitmq,
-  ],
-  frontend: [
     skills.html,
     skills.css,
     skills.reactjs,
@@ -235,32 +220,27 @@ export const skillGroups: Record<SkillGroupName, Skill[]> = {
     skills.semanticui,
     skills.bootstrap,
     skills.chartjs,
-  ],
-  other: [
-    skills.linux,
-    skills.git,
-    skills.heroku,
-    skills.latex,
-    skills.gnuplot,
+    skills.d3js,
     skills.figma,
   ],
+  backend: [
+    skills.python,
+    skills.php,
+    skills.django,
+    skills.restapi,
+    skills.celery,
+    skills.postgresql,
+    skills.mysql,
+    skills.rabbitmq,
+    skills.spacy,
+  ],
+  devops: [skills.docker, skills.linux, skills.git, skills.heroku, skills.bash],
+  other: [skills.c, skills.latex, skills.gnuplot],
 };
 
 /**
  * Helper function to create a custom group of skills
- * @param skillIds Array of skill IDs to include in the group
- * @returns Array of Skill objects
  */
 export function createSkillGroup(skillIds: string[]): Skill[] {
-  return skillIds.map((id) => {
-    if (!skills[id]) {
-      console.warn(`Skill with ID "${id}" not found`);
-      return {
-        id,
-        name: id,
-        icon: "placeholder.svg",
-      };
-    }
-    return skills[id];
-  });
+  return skillIds.map((id) => skills[id]).filter(Boolean);
 }

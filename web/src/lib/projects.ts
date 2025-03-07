@@ -29,8 +29,9 @@ const bjjpathsProject: Project = {
     "and each category is represented by its own shape and colour. The user connects up moves depending on their opponent's action/reaction so that the map branches off into different move sequences. ",
   technologies: {
     brief: ["Django", "ReactJS"],
-    backend: ["python", "django", "restapi", "docker", "postgresql"],
+    backend: ["python", "django", "restapi", "postgresql"],
     frontend: ["html", "css", "javascript", "reactjs", "semanticui"],
+    devops: ["docker"],
   },
   learnings: ["Auth0", "Drag & Drop", "Graph Traversal"],
   anchors: [
@@ -88,6 +89,7 @@ const taskmaProject: Project = {
     brief: ["Django", "ReactJS"],
     backend: ["python", "django", "restapi", "postgresql"],
     frontend: ["html", "css", "javascript", "reactjs", "semanticui"],
+    devops: ["git", "heroku"],
   },
 
   learnings: [
@@ -170,8 +172,9 @@ const deviculumProject: Project = {
 
   technologies: {
     brief: ["Django", "JavaScript"],
-    backend: ["python", "django", "celery", "rabbitmq", "spacy", "postgresql"],
+    backend: ["python", "django", "spacy", "postgresql"],
     frontend: ["html", "css", "javascript", "bootstrap", "chartjs", "d3js"],
+    devops: ["celery", "rabbitmq", "docker", "linux"],
   },
   learnings: ["Authentication", "Django ORM", "OOP designs", "Chord Charts"],
   anchors: [
@@ -198,11 +201,17 @@ const deviculumProject: Project = {
       caption: "An example Blooms taxonomy of verbs.",
     },
     {
-      source: `${projectImageDirs.deviculum}/taxonomy-overlap2.png`,
+      source: `${projectImageDirs.deviculum}/outcomes.png`,
+      type: "image",
+      padding: "5%",
+      caption: "An example list of learning outcomes for a module.",
+    },
+    {
+      source: `${projectImageDirs.deviculum}/blooms-analysis.png`,
       type: "image",
       padding: "5%",
       caption:
-        "A chord diagram representing the verb overlap between Blooms taxonomy categories.",
+        "A blooms taxonomy analysis visualised via a chord chart and stacked bar chart.",
     },
     {
       source: `${projectVideoDirs.deviculum}/deviculum.mp4`,
@@ -221,8 +230,10 @@ const portfolioProject: Project = {
   description: "A portfolio website showcasing my projects and skills.",
   technologies: {
     brief: ["Next.js", "TypeScript", "Tailwind"],
-    backend: ["nextjs"],
-    frontend: ["html", "css", "typescript", "reactjs", "tailwind"],
+    backend: [],
+    frontend: ["html", "css", "typescript", "reactjs", "tailwind", "nextjs"],
+    devops: ["git", "docker"],
+    other: ["latex"],
   },
   learnings: ["CSS animations", "Responsive Design", "Next.js 14"],
   anchors: [
