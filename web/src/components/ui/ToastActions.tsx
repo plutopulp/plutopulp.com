@@ -2,8 +2,9 @@
 
 import React from "react";
 import type { ActionType, ToastAction } from "@/lib/toast";
-import { Button, ButtonVariant } from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import { notify } from "@/lib/toast";
+import { ButtonVariant } from "@/types/ui";
 
 // Maps action types to Button variants
 const getButtonProps = (

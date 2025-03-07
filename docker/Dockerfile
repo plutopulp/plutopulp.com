@@ -12,7 +12,7 @@ FROM base AS dev
 ENV NODE_ENV=development
 # Copy package files
 COPY web/package.json web/yarn.lock ./
-# Install dependencies 
+# Install dependencies
 RUN yarn install --frozen-lockfile
 # Copy the rest of the application
 COPY web/ ./
@@ -32,7 +32,7 @@ RUN yarn install --frozen-lockfile --production
 # ------------------ Build Stage ------------------
 FROM base AS builder
 WORKDIR /app
-# Copy package files and install all dependencies (including dev)
+# Copy package files and install all dependencies
 COPY web/package.json web/yarn.lock ./
 RUN yarn install --frozen-lockfile
 # Copy application code
