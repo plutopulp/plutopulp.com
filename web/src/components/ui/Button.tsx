@@ -2,10 +2,11 @@
 
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
+import { ButtonVariant, ComponentSize } from "@/types/ui";
 // Note: Color values used in this component should match those in @/lib/colors.ts
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
-type ButtonSize = "sm" | "md" | "lg";
+// Use ComponentSize but limit to only 3 sizes for buttons
+type ButtonSize = Extract<ComponentSize, "sm" | "md" | "lg">;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;

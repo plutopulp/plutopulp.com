@@ -13,12 +13,20 @@ export default function Home() {
         can navigate through various examples using the links below.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl w-full">
         <Link
           href="/landing"
           className="group flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white py-4 px-6 rounded-lg transition duration-200 ease-in-out"
         >
           <span className="mr-2">Visit Landing Page</span>
+          <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+        </Link>
+
+        <Link
+          href="/projects"
+          className="group flex items-center justify-center bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-lg transition duration-200 ease-in-out"
+        >
+          <span className="mr-2">View Projects</span>
           <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
         </Link>
 
@@ -33,8 +41,9 @@ export default function Home() {
 
       <p className="mt-12 text-gray-600 dark:text-gray-400 max-w-2xl">
         The landing page showcases the spiral circles animation with a header
-        similar to the original portfolio. The component showcase contains
-        various UI elements and design patterns.
+        similar to the original portfolio. The projects section displays my
+        portfolio work, and the component showcase contains various UI elements
+        and design patterns.
       </p>
     </main>
   );

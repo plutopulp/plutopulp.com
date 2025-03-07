@@ -2,12 +2,7 @@
 
 import React from "react";
 import SkillCell from "./SkillCell";
-
-export interface Skill {
-  name: string;
-  icon: string;
-  link: string; // URL for more information about the skill
-}
+import { Skill } from "@/lib/skills";
 
 interface SkillsSectionProps {
   title: string;

@@ -7,15 +7,7 @@ import FormTextArea from "./FormTextArea";
 import { Button } from "@/components/ui/Button";
 import { validationRules } from "@/lib/validation";
 import { notify } from "@/lib/toast";
-
-type FormInputs = {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-};
-
-type SubmissionStatus = "idle" | "submitting";
+import { ContactFormInputs, SubmissionStatus } from "@/types/form";
 
 export const ContactForm = () => {
   const [status, setStatus] = useState<SubmissionStatus>("idle");
@@ -25,9 +17,9 @@ export const ContactForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormInputs>();
+  } = useForm<ContactFormInputs>();
 
-  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     setStatus("submitting");
 
     // Create a loading toast that we'll update later

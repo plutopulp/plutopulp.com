@@ -1,14 +1,4 @@
-import { UseFormRegisterReturn, FieldError } from "react-hook-form";
-
-type FormInputProps = {
-  id: string;
-  label: string;
-  type?: "text" | "email";
-  placeholder?: string;
-  required?: boolean;
-  register: UseFormRegisterReturn;
-  error?: FieldError;
-};
+import { FormInputProps } from "@/types/form";
 
 export const FormInput = ({
   id,

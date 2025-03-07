@@ -1,14 +1,4 @@
-import { UseFormRegisterReturn, FieldError } from "react-hook-form";
-
-type FormTextAreaProps = {
-  id: string;
-  label: string;
-  placeholder?: string;
-  required?: boolean;
-  register: UseFormRegisterReturn;
-  error?: FieldError;
-  rows?: number;
-};
+import { FormTextAreaProps } from "@/types/form";
 
 export const FormTextArea = ({
   id,

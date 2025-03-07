@@ -5,87 +5,15 @@ import SkillsSection from "./SkillsSection";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-// Define skills data - organized by category
+import { skillGroups } from "@/lib/skills";
+
+// Use the predefined skill groups from the skills.ts library
+// This centralizes skill definitions and makes maintenance easier
 const skillsData = {
-  languages: [
-    { name: "Python", icon: "python.svg", link: "https://docs.python.org/" },
-    {
-      name: "JavaScript",
-      icon: "javascript.svg",
-      link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-    },
-    { name: "C", icon: "c.svg", link: "https://en.cppreference.com/w/c" },
-    { name: "PHP", icon: "php.svg", link: "https://www.php.net/docs.php" },
-    {
-      name: "BASH",
-      icon: "bash.svg",
-      link: "https://www.gnu.org/software/bash/manual/bash.html",
-    },
-  ],
-  backend: [
-    {
-      name: "Django",
-      icon: "django.svg",
-      link: "https://www.djangoproject.com/",
-    },
-    { name: "REST APIs", icon: "restAPI.png", link: "https://restfulapi.net/" },
-    { name: "Docker", icon: "docker.png", link: "https://docs.docker.com/" },
-    { name: "Celery", icon: "celery.svg", link: "https://docs.celeryq.dev/" },
-    {
-      name: "PostgreSQL",
-      icon: "psql.svg",
-      link: "https://www.postgresql.org/docs/",
-    },
-    { name: "MySQL", icon: "mySQL.svg", link: "https://dev.mysql.com/doc/" },
-  ],
-  frontend: [
-    {
-      name: "HTML-5",
-      icon: "html5.svg",
-      link: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-    },
-    {
-      name: "CSS-3",
-      icon: "css3.svg",
-      link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-    },
-    { name: "ReactJS", icon: "react.svg", link: "https://react.dev/" },
-    {
-      name: "Semantic UI",
-      icon: "semanticUI.svg",
-      link: "https://semantic-ui.com/",
-    },
-    {
-      name: "Bootstrap",
-      icon: "bootstrap.svg",
-      link: "https://getbootstrap.com/docs/",
-    },
-    {
-      name: "ChartJS",
-      icon: "chartjs.svg",
-      link: "https://www.chartjs.org/docs/",
-    },
-  ],
-  other: [
-    { name: "Linux", icon: "linux.svg", link: "https://www.kernel.org/" },
-    { name: "Git", icon: "git.svg", link: "https://git-scm.com/doc" },
-    {
-      name: "Heroku",
-      icon: "heroku.svg",
-      link: "https://devcenter.heroku.com/",
-    },
-    {
-      name: "LaTeX",
-      icon: "latex.svg",
-      link: "https://www.latex-project.org/help/documentation/",
-    },
-    {
-      name: "Gnuplot",
-      icon: "gnuplot.svg",
-      link: "http://gnuplot.info/documentation.html",
-    },
-    { name: "Figma", icon: "figma.svg", link: "https://help.figma.com/" },
-  ],
+  languages: skillGroups.languages,
+  backend: skillGroups.backend,
+  frontend: skillGroups.frontend,
+  other: skillGroups.other,
 };
 
 // Animation variants for individual sections
