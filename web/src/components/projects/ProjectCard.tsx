@@ -17,46 +17,35 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     console.log("Learn more clicked for:", project.title);
   };
 
-  // Common style classes
+  // Common transition classes
   const transitionClasses = "transition-all duration-400 delay-[50ms]";
-  const absoluteClasses = "absolute top-0 w-full h-full z-10";
 
-  // Reusable hover element component
-  const HoverElement = ({
-    className,
-    style,
-    children,
-  }: {
-    className?: string;
-    style?: React.CSSProperties;
-    children: React.ReactNode;
-  }) => (
-    <div
-      className={cn(
-        absoluteClasses,
-        transitionClasses,
-        isHovered ? "opacity-100" : "opacity-0",
-        className
-      )}
-      style={style}
-    >
-      {children}
-    </div>
-  );
+  // Common absolute positioning classes
+  const absoluteClasses = "absolute top-0 w-full h-full z-10";
 
   return (
     <div ref={ref} className="relative w-full h-full">
       {/* Title - slides down on hover */}
-      <HoverElement
+      <div
+        className={cn(
+          absoluteClasses,
+          transitionClasses,
+          isHovered ? "opacity-100" : "opacity-0"
+        )}
         style={{
           transform: isHovered ? "translateY(25%)" : "translateY(0%)",
         }}
       >
         <Heading2 className="text-center font-bold">{project.title}</Heading2>
-      </HoverElement>
+      </div>
 
       {/* Tech stack - slides down on hover */}
-      <HoverElement
+      <div
+        className={cn(
+          absoluteClasses,
+          transitionClasses,
+          isHovered ? "opacity-100" : "opacity-0"
+        )}
         style={{
           transform: isHovered ? "translateY(40%)" : "translateY(0%)",
         }}
@@ -64,7 +53,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <TechStack className="text-center text-[#4c4cd580] font-semibold">
           {project.technologies.brief.join(" - ")}
         </TechStack>
-      </HoverElement>
+      </div>
 
       {/* Image container - fades out on hover */}
       <div
@@ -82,7 +71,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               src={project.image}
               alt={project.title}
               fill
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full" /* Using object-cover to fill while maintaining aspect ratio */
               priority
             />
           </div>
