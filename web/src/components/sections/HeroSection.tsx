@@ -5,6 +5,7 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import SpiralCircles from "@/components/landing/SpiralCircles";
 import { HeroHeader } from "@/components/landing/HeroHeader";
 import { ActionButton } from "@/components/landing/ActionButton";
+import { colors } from "@/lib/colors";
 
 const HeroSection: React.FC = () => {
   const [isAnimationActive, setIsAnimationActive] = useState(false);
@@ -20,7 +21,10 @@ const HeroSection: React.FC = () => {
 
   return (
     <section id="hero" className="min-h-screen">
-      <div className="relative min-h-screen bg-gray-900 overflow-hidden">
+      <div
+        className="relative min-h-screen overflow-hidden"
+        style={{ backgroundColor: colors.sections.hero }}
+      >
         {/* SpiralCircles background */}
         <div className="absolute inset-0 z-0">
           <SpiralCircles />

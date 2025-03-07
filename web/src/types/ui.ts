@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, ButtonHTMLAttributes, CSSProperties } from "react";
 
 /**
  * Common size options for UI components
@@ -9,6 +9,18 @@ export type ComponentSize = "sm" | "md" | "lg" | "xl";
  * Common button variants
  */
 export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+
+/**
+ * Button component props
+ */
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  variant?: ButtonVariant;
+  size?: Extract<ComponentSize, "sm" | "md" | "lg">;
+  className?: string;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+}
 
 /**
  * Base props for all modal components
@@ -43,6 +55,7 @@ export interface TypographyProps {
   className?: string;
   color?: string;
   as?: React.ElementType;
+  style?: CSSProperties;
 }
 
 /**
@@ -51,4 +64,5 @@ export interface TypographyProps {
 export interface SimpleTypographyProps {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }

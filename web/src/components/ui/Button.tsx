@@ -1,83 +1,112 @@
 "use client";
 
-import React, { ButtonHTMLAttributes, ReactNode } from "react";
-import Link from "next/link";
-import { ButtonVariant, ComponentSize } from "@/types/ui";
-// Note: Color values used in this component should match those in @/lib/colors.ts
+import React, { useState } from "react";
+import { cn } from "@/lib/utils";
+import { ButtonProps } from "@/types/ui";
+import { colors } from "@/lib/colors";
 
-// Use ComponentSize but limit to only 3 sizes for buttons
-type ButtonSize = Extract<ComponentSize, "sm" | "md" | "lg">;
+const buttonSizes = {
+  sm: "py-1 px-2 text-sm",
+  md: "py-2 px-4 text-base",
+  lg: "py-3 px-6 text-lg",
+};
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  href?: string;
-  className?: string;
-  rightIcon?: ReactNode;
+// Define TypeScript type for button styles
+interface ButtonStyle {
+  bg: string;
+  hoverBg: string;
+  text: string;
+  border: string;
+  hoverText?: string;
 }
 
-/**
- * Button component with multiple variants and sizes
- *
- * Colors are hardcoded here but reference the values in lib/colors.ts
- * This is necessary because Tailwind needs static class strings at build time
- */
-export const Button = ({
-  children,
-  variant = "primary",
-  size = "md",
-  href,
-  className = "",
-  rightIcon,
-  ...props
-}: ButtonProps) => {
-  // Base classes
-  const baseClasses =
-    "font-medium rounded-md transition-all duration-300 inline-flex items-center justify-center cursor-pointer";
+// Button style configurations by variant
+const buttonStyles: Record<string, ButtonStyle> = {
+  primary: {
+    bg: colors.button.primary.bg,
+    hoverBg: colors.button.primary.hover,
+    text: colors.text.inverted,
+    border: "transparent",
+  },
+  secondary: {
+    bg: colors.button.secondary.bg,
+    hoverBg: colors.button.secondary.hover,
+    text: colors.button.secondary.text,
+    border: "transparent",
+  },
+  outline: {
+    bg: "transparent",
+    hoverBg: colors.button.outline.hover_bg,
+    text: colors.button.outline.text,
+    hoverText: colors.button.outline.hover_text,
+    border: colors.button.outline.border,
+  },
+  ghost: {
+    bg: "transparent",
+    hoverBg: colors.button.ghost.hover,
+    text: colors.button.ghost.text,
+    border: "transparent",
+  },
+};
 
-  // Size classes
-  const sizeClasses = {
-    sm: "px-3 py-1.5 text-sm",
-    md: "px-4 py-2.5 text-base",
-    lg: "px-6 py-3 text-lg",
-  };
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      className = "",
+      variant = "primary",
+      size = "md",
+      type = "button",
+      disabled = false,
+      leftIcon,
+      rightIcon,
+      onClick,
+      ...props
+    },
+    ref
+  ) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const styles = buttonStyles[variant];
+    const sizeClassName = buttonSizes[size];
 
-  // Variant classes
-  // Values match colors in lib/colors.ts
-  const variantClasses = {
-    // Using primary.DEFAULT (#5893AB) and primary.dark (#47768D)
-    primary: "bg-[#5893AB] hover:bg-[#47768D] text-white",
+    const baseClassName = cn(
+      // Base button styles
+      "inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 ease-in-out cursor-pointer",
+      // Handle disabled state
+      disabled
+        ? "opacity-50 cursor-not-allowed"
+        : "hover:shadow-md active:transform active:scale-95",
+      // Size specific styles
+      sizeClassName,
+      className
+    );
 
-    // Using gray.light (#F3F4F6), gray.DEFAULT (#E5E7EB), and gray.darkest (#1F2937)
-    secondary: "bg-[#F3F4F6] hover:bg-[#E5E7EB] text-[#1F2937]",
+    const buttonStyle = {
+      backgroundColor: isHovered ? styles.hoverBg : styles.bg,
+      color: isHovered && styles.hoverText ? styles.hoverText : styles.text,
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: styles.border,
+    };
 
-    // Using primary.DEFAULT (#5893AB) and a very light tint of it
-    outline:
-      "bg-transparent border border-[#5893AB] text-[#5893AB] hover:bg-[#5893AB] hover:text-[#EEF5F8]",
-
-    // Using gray.lightest (#F9FAFB) and gray.light (#F3F4F6)
-    ghost: "bg-transparent hover:bg-[#F3F4F6] text-[#1F2937]",
-  };
-
-  // Combine classes
-  const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
-
-  // If href is provided, render as Link
-  if (href) {
     return (
-      <Link href={href} className={`${classes} group`}>
-        <span>{children}</span>
+      <button
+        ref={ref}
+        className={baseClassName}
+        type={type}
+        style={buttonStyle}
+        disabled={disabled}
+        onClick={onClick}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        {...props}
+      >
+        {leftIcon && <span className="mr-2">{leftIcon}</span>}
+        {children}
         {rightIcon && <span className="ml-2">{rightIcon}</span>}
-      </Link>
+      </button>
     );
   }
+);
 
-  // Otherwise render as button
-  return (
-    <button className={`${classes} group`} {...props}>
-      <span>{children}</span>
-      {rightIcon && <span className="ml-2">{rightIcon}</span>}
-    </button>
-  );
-};
+Button.displayName = "Button";

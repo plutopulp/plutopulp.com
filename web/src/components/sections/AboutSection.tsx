@@ -5,6 +5,7 @@ import SectionLayout from "@/components/layout/SectionLayout";
 import AboutBio from "@/components/about/AboutBio";
 import ProfileImage from "@/components/about/ProfileImage";
 import NavigationButtons from "@/components/about/NavigationButtons";
+import { colors } from "@/lib/colors";
 
 const AboutSection: React.FC = () => {
   // Scroll handlers for navigation
@@ -18,20 +19,17 @@ const AboutSection: React.FC = () => {
     projectsSection?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Light gray background color from the design
-  const bgColor = "#f5f5f5";
-
   return (
     <SectionLayout
       id="about"
-      backgroundColor={bgColor}
+      backgroundColor={colors.sections.about}
       title="About"
       fullHeight={true}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         {/* Text content */}
         <div className="md:col-span-7">
-          <AboutBio bgColor={bgColor} />
+          <AboutBio bgColor={colors.sections.about} />
         </div>
 
         {/* Image */}

@@ -5,6 +5,7 @@ import SectionLayout from "@/components/layout/SectionLayout";
 import SkillsSection from "@/components/skills/SkillsSection";
 import { motion, useInView } from "framer-motion";
 import { skillGroups } from "@/lib/skills";
+import { colors } from "@/lib/colors";
 
 // Use the predefined skill groups from the skills.ts library
 const skillsData = {
@@ -45,7 +46,7 @@ const SkillsSectionComponent: React.FC = () => {
   return (
     <SectionLayout
       id="skills"
-      backgroundColor="#ffffff"
+      backgroundColor={colors.sections.skills}
       title="Skills"
       fullHeight={true}
     >

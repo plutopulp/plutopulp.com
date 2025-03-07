@@ -7,6 +7,7 @@ import { Heading2, TechStack } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { ProjectModal } from "./ProjectModal";
+import { colors } from "@/lib/colors";
 
 export default function ProjectTile({ project }: ProjectCardProps) {
   const [ref, isHovered] = useHover();
@@ -25,6 +26,11 @@ export default function ProjectTile({ project }: ProjectCardProps) {
 
   // Common absolute positioning classes
   const absoluteClasses = "absolute top-0 w-full h-full z-10";
+
+  // Define styles for the tech stack text
+  const techStackStyle = {
+    color: `${colors.secondary.DEFAULT}80`, // Using the secondary color with 50% opacity
+  };
 
   return (
     <>
@@ -54,7 +60,10 @@ export default function ProjectTile({ project }: ProjectCardProps) {
             transform: isHovered ? "translateY(40%)" : "translateY(0%)",
           }}
         >
-          <TechStack className="text-center text-[#4c4cd580] font-semibold">
+          <TechStack
+            className="text-center font-semibold"
+            style={techStackStyle}
+          >
             {project.technologies.brief.join(" - ")}
           </TechStack>
         </div>
@@ -68,14 +77,25 @@ export default function ProjectTile({ project }: ProjectCardProps) {
           )}
         >
           {/* Outer card frame */}
-          <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden p-3 md:p-4">
+          <div
+            className="rounded-lg shadow-md overflow-hidden p-3 md:p-4"
+            style={{
+              backgroundColor: colors.background.light,
+              borderColor: colors.gray[100],
+              borderWidth: "1px",
+              borderStyle: "solid",
+            }}
+          >
             {/* Inner image container */}
-            <div className="bg-gray-50 aspect-[4/3] rounded-md overflow-hidden relative">
+            <div
+              className="rounded-md overflow-hidden relative aspect-[4/3]"
+              style={{ backgroundColor: colors.gray[50] }}
+            >
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
-                className="object-cover w-full h-full" /* Using object-cover to fill while maintaining aspect ratio */
+                className="object-cover w-full h-full"
                 priority
               />
             </div>

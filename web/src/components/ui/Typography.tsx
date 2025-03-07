@@ -15,6 +15,7 @@ export const Typography = ({
   className = "",
   color,
   as,
+  style,
   ...props
 }: TypographyProps & React.HTMLAttributes<HTMLElement>) => {
   // Base styles for each variant
@@ -43,58 +44,82 @@ export const Typography = ({
 
   const Component = as || defaultElements[variant];
   const classes = cn(variantClasses[variant], className);
-  const styles = color ? { color } : {};
+  const mergedStyles = color ? { ...style, color } : style;
 
   return (
-    <Component className={classes} style={styles} {...props}>
+    <Component className={classes} style={mergedStyles} {...props}>
       {children}
     </Component>
   );
 };
 
-export function Heading1({ children, className }: SimpleTypographyProps) {
+export function Heading1({
+  children,
+  className,
+  style,
+}: SimpleTypographyProps) {
   return (
-    <Typography variant="h1" className={className}>
+    <Typography variant="h1" className={className} style={style}>
       {children}
     </Typography>
   );
 }
 
-export function Heading2({ children, className }: SimpleTypographyProps) {
+export function Heading2({
+  children,
+  className,
+  style,
+}: SimpleTypographyProps) {
   return (
-    <Typography variant="h2" className={className}>
+    <Typography variant="h2" className={className} style={style}>
       {children}
     </Typography>
   );
 }
 
-export function Heading3({ children, className }: SimpleTypographyProps) {
+export function Heading3({
+  children,
+  className,
+  style,
+}: SimpleTypographyProps) {
   return (
-    <Typography variant="h3" className={className}>
+    <Typography variant="h3" className={className} style={style}>
       {children}
     </Typography>
   );
 }
 
-export function Paragraph({ children, className }: SimpleTypographyProps) {
+export function Paragraph({
+  children,
+  className,
+  style,
+}: SimpleTypographyProps) {
   return (
-    <Typography variant="body" className={className}>
+    <Typography variant="body" className={className} style={style}>
       {children}
     </Typography>
   );
 }
 
-export function Caption({ children, className }: SimpleTypographyProps) {
+export function Caption({ children, className, style }: SimpleTypographyProps) {
   return (
-    <Typography variant="caption" className={className}>
+    <Typography variant="caption" className={className} style={style}>
       {children}
     </Typography>
   );
 }
 
-export function TechStack({ children, className }: SimpleTypographyProps) {
+export function TechStack({
+  children,
+  className,
+  style,
+}: SimpleTypographyProps) {
   return (
-    <Typography variant="body" className={cn("font-medium", className)}>
+    <Typography
+      variant="body"
+      className={cn("font-medium", className)}
+      style={style}
+    >
       {children}
     </Typography>
   );

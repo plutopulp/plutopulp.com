@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { validationRules } from "@/lib/validation";
 import { notify } from "@/lib/toast";
 import { ContactFormInputs, SubmissionStatus } from "@/types/form";
+import { colors } from "@/lib/colors";
 
 export const ContactForm = () => {
   const [status, setStatus] = useState<SubmissionStatus>("idle");
@@ -59,7 +60,10 @@ export const ContactForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-2xl p-8 rounded-lg bg-gradient-to-b from-[#5893AB]/60 to-[#AC2CACff]/60 text-white"
+      className="w-full max-w-2xl p-8 rounded-lg text-white"
+      style={{
+        background: `linear-gradient(to bottom, ${colors.form.gradient.from}, ${colors.form.gradient.to})`,
+      }}
       noValidate
     >
       <FormInput

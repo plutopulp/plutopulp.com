@@ -4,12 +4,13 @@ import React from "react";
 import SectionLayout from "@/components/layout/SectionLayout";
 import { projectsData } from "@/lib/projects";
 import ProjectTile from "@/components/projects/ProjectTile";
+import { colors } from "@/lib/colors";
 
 const ProjectsSection: React.FC = () => {
   return (
     <SectionLayout
       id="projects"
-      backgroundColor="#f7f7f7"
+      backgroundColor={colors.sections.projects}
       title="Projects"
       fullHeight={true}
     >
