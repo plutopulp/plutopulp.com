@@ -6,11 +6,13 @@ import SkillCell from "@/components/skills/SkillCell";
 interface TechnologiesListProps {
   technologies: string[];
   textColor?: string;
+  category?: "backend" | "frontend" | "devops" | "other";
 }
 
 export default function TechnologiesList({
   technologies,
   textColor,
+  category = "other",
 }: TechnologiesListProps) {
   const techSkills = useMemo(() => {
     return technologies.map((techId) => {
@@ -37,6 +39,7 @@ export default function TechnologiesList({
             link={skill.link}
             index={index}
             inView={true}
+            category={category}
           />
         </div>
       ))}

@@ -3,6 +3,7 @@ import { Project } from "@/types/project";
 import { Heading2, Heading3, Paragraph } from "@/components/ui/Typography";
 import ProjectAnchors from "./ProjectAnchors";
 import TechnologiesList from "./TechnologiesList";
+import { colors } from "@/lib/colors";
 
 interface ProjectDetailsProps {
   project: Project;
@@ -10,6 +11,14 @@ interface ProjectDetailsProps {
 
 export default function ProjectDetails({ project }: ProjectDetailsProps) {
   const { title, meta, description, anchors, technologies } = project;
+
+  // Define category colors based on our color system
+  const categoryColors = {
+    backend: colors.skills.backend + "AA", // 67% opacity
+    frontend: colors.skills.frontend + "AA",
+    devops: colors.skills.devops + "AA",
+    other: colors.skills.other + "AA",
+  };
 
   return (
     <div className="mt-8">
@@ -38,21 +47,69 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
         <Heading3 className="font-semibold mb-4 text-xl">Built With</Heading3>
 
         {/* Backend technologies */}
-        {technologies.backend.length > 0 && (
+        {technologies.backend && technologies.backend.length > 0 && (
           <div className="mb-6">
+            <div
+              className="text-sm font-semibold mb-2"
+              style={{ color: categoryColors.backend }}
+            >
+              Backend
+            </div>
             <TechnologiesList
               technologies={technologies.backend}
-              textColor="#257795aa"
+              textColor={categoryColors.backend}
+              category="backend"
             />
           </div>
         )}
 
         {/* Frontend technologies */}
-        {technologies.frontend.length > 0 && (
+        {technologies.frontend && technologies.frontend.length > 0 && (
           <div className="mb-6">
+            <div
+              className="text-sm font-semibold mb-2"
+              style={{ color: categoryColors.frontend }}
+            >
+              Frontend
+            </div>
             <TechnologiesList
               technologies={technologies.frontend}
-              textColor="#4c4cd5aa"
+              textColor={categoryColors.frontend}
+              category="frontend"
+            />
+          </div>
+        )}
+
+        {/* DevOps technologies */}
+        {technologies.devops && technologies.devops.length > 0 && (
+          <div className="mb-6">
+            <div
+              className="text-sm font-semibold mb-2"
+              style={{ color: categoryColors.devops }}
+            >
+              DevOps
+            </div>
+            <TechnologiesList
+              technologies={technologies.devops}
+              textColor={categoryColors.devops}
+              category="devops"
+            />
+          </div>
+        )}
+
+        {/* Other technologies */}
+        {technologies.other && technologies.other.length > 0 && (
+          <div className="mb-6">
+            <div
+              className="text-sm font-semibold mb-2"
+              style={{ color: categoryColors.other }}
+            >
+              Other
+            </div>
+            <TechnologiesList
+              technologies={technologies.other}
+              textColor={categoryColors.other}
+              category="other"
             />
           </div>
         )}

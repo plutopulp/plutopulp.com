@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { colors } from "@/lib/colors";
 
 interface SkillCellProps {
   name: string;
@@ -10,6 +11,7 @@ interface SkillCellProps {
   link?: string;
   index?: number; // For animation delay calculation
   inView?: boolean; // Whether parent section is in view
+  category?: "backend" | "frontend" | "devops" | "other"; // Category for color coding
 }
 
 /**
@@ -22,9 +24,10 @@ export const SkillCell: React.FC<SkillCellProps> = ({
   link,
   index = 0,
   inView = false,
+  category = "other", // Default to "other" if category is not specified
 }) => {
   // Animation delay based on index position
-  const delay = 0.1 + index * 0.25;
+  const delay = 0.1 + index * 0.1;
 
   // Base motion component props
   const motionProps = {
@@ -47,6 +50,41 @@ export const SkillCell: React.FC<SkillCellProps> = ({
     whileTap: { scale: 0.95 },
   };
 
+  // Get category colors with different opacities
+  const getColorWithOpacity = (opacity: number) => {
+    let baseColor = "";
+
+    switch (category) {
+      case "backend":
+        baseColor = colors.skills.backend;
+        break;
+      case "frontend":
+        baseColor = colors.skills.frontend;
+        break;
+      case "devops":
+        baseColor = colors.skills.devops;
+        break;
+      case "other":
+      default:
+        baseColor = colors.skills.other;
+        break;
+    }
+
+    // If we want full opacity, just return the color
+    if (opacity === 1) return baseColor;
+
+    // Otherwise, add opacity value to the hex color
+    return `${baseColor}${Math.round(opacity * 255)
+      .toString(16)
+      .padStart(2, "0")}`;
+  };
+
+  // Set the normal and hover color style
+  const nameStyle = {
+    "--normal-color": getColorWithOpacity(0.7), // 70% opacity for normal state
+    "--hover-color": getColorWithOpacity(1), // 100% opacity for hover state
+  };
+
   // Content to render inside the container
   const content = (
     <>
@@ -59,7 +97,10 @@ export const SkillCell: React.FC<SkillCellProps> = ({
           className="object-contain transition-transform duration-200 group-hover:scale-110"
         />
       </div>
-      <span className="text-xs font-normal text-center text-gray-800 group-hover:text-[#5893AB] transition-colors duration-200">
+      <span
+        className="text-xs font-normal text-center transition-colors duration-200 text-[var(--normal-color)] group-hover:text-[var(--hover-color)]"
+        style={nameStyle as React.CSSProperties}
+      >
         {name}
       </span>
     </>

@@ -38,6 +38,8 @@ export interface Project {
     brief: string[]; // Display names for brief overview
     backend: string[]; // Skill IDs for backend technologies
     frontend: string[]; // Skill IDs for frontend technologies
+    devops?: string[]; // Skill IDs for devops technologies
+    other?: string[]; // Skill IDs for other technologies
   };
   learnings: string[];
   anchors: Anchor[];
