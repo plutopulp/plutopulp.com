@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, RefObject } from "react";
 import { usePathname } from "next/navigation";
 
 // Define types for navigation
@@ -12,7 +12,12 @@ export interface NavItem {
   sectionId?: string; // Only for section type
 }
 
-// Items can be imported to here or passed into the hook
+// Define a type for section references
+export type SectionRefs = {
+  [sectionId: string]: RefObject<HTMLElement | null>;
+};
+
+// Navigation items configuration
 export const navItems: NavItem[] = [
   { id: "home", label: "Home", path: "/", type: "section", sectionId: "hero" },
   {
@@ -43,50 +48,69 @@ export const navItems: NavItem[] = [
     type: "section",
     sectionId: "contact",
   },
-  // Examples commented out for future use
-  // { id: 'resume', label: 'Resume', path: '/resume.pdf', type: 'pdf' },
-  // { id: 'blog', label: 'Blog', path: '/blog', type: 'page' },
-  // { id: 'github', label: 'GitHub', path: 'https://github.com/username', type: 'external' },
 ];
 
-export function useNavigation() {
+// Calculate section visibility score
+const calculateSectionVisibility = (rect: DOMRect, viewportHeight: number) => {
+  const visibleTop = Math.max(0, rect.top);
+  const visibleBottom = Math.min(viewportHeight, rect.bottom);
+  const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+  const distanceFromMiddle = Math.abs(
+    (visibleTop + visibleBottom) / 2 - viewportHeight / 2
+  );
+  const normalizedDistance = 1 - distanceFromMiddle / (viewportHeight / 2);
+
+  return visibleHeight * normalizedDistance;
+};
+
+// Find most visible section
+const findMostVisibleSection = (sectionRefs: SectionRefs): string | null => {
+  let bestSection = null;
+  let bestVisibility = -1;
+
+  for (const [sectionId, ref] of Object.entries(sectionRefs)) {
+    const section = ref.current;
+    if (!section) continue;
+
+    const visibility = calculateSectionVisibility(
+      section.getBoundingClientRect(),
+      window.innerHeight
+    );
+
+    if (visibility > bestVisibility) {
+      bestVisibility = visibility;
+      bestSection = sectionId;
+    }
+  }
+
+  return bestSection;
+};
+
+// Check if page is scrolled past hero section
+const checkIfScrolled = (aboutRef: RefObject<HTMLElement | null>) => {
+  if (aboutRef?.current) {
+    const aboutRect = aboutRef.current.getBoundingClientRect();
+    return aboutRect.top <= 0;
+  }
+  return window.scrollY > window.innerHeight * 0.8;
+};
+
+export function useNavigation(sectionRefs: SectionRefs) {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const isHomePage = pathname === "/";
 
-  // Track scroll position for fixed/absolute navbar
+  // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
-      // Check if about section is visible
-      const aboutSection = document.getElementById("about");
-      if (aboutSection) {
-        const aboutRect = aboutSection.getBoundingClientRect();
-        // If about section is at the top of the viewport or higher
-        setIsScrolled(aboutRect.top <= 0);
-      } else {
-        // Fallback if section not found
-        setIsScrolled(window.scrollY > window.innerHeight * 0.8);
-      }
+      setIsScrolled(checkIfScrolled(sectionRefs.about));
 
-      // Determine active section based on scroll position
       if (isHomePage) {
-        const sections = ["hero", "about", "skills", "projects", "contact"]
-          .map((id) => document.getElementById(id))
-          .filter(Boolean);
-
-        for (const section of sections) {
-          if (!section) continue;
-
-          const rect = section.getBoundingClientRect();
-          // Consider a section active when it's mostly in view
-          if (
-            rect.top <= window.innerHeight / 3 &&
-            rect.bottom >= window.innerHeight / 3
-          ) {
-            setActiveSection(section.id);
-            break;
-          }
+        const mostVisibleSection = findMostVisibleSection(sectionRefs);
+        if (mostVisibleSection) {
+          setActiveSection(mostVisibleSection);
         }
       }
     };
@@ -95,53 +119,38 @@ export function useNavigation() {
     handleScroll(); // Initialize state
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHomePage]);
+  }, [isHomePage, sectionRefs]);
 
-  // Determine if a navigation item is active
+  // Check if nav item is active
   const isActive = useCallback(
     (item: NavItem): boolean => {
       if (!isHomePage) {
-        // Regular page navigation for non-home pages
         return pathname === item.path;
       }
-
-      // For section links on home page, check the active section
-      if (item.type === "section" && item.sectionId) {
-        return activeSection === item.sectionId;
-      }
-
-      return false;
+      return item.type === "section" && item.sectionId === activeSection;
     },
     [pathname, isHomePage, activeSection]
   );
 
-  // Handle navigation based on link type
+  // Handle navigation clicks
   const handleNavigation = useCallback(
     (e: React.MouseEvent, item: NavItem) => {
       if (item.type === "section" && isHomePage && item.sectionId) {
         e.preventDefault();
-        const section = document.getElementById(item.sectionId);
-        if (section) {
-          // Smooth scroll to the section
-          section.scrollIntoView({ behavior: "smooth" });
-        }
+        sectionRefs[item.sectionId]?.current?.scrollIntoView({
+          behavior: "smooth",
+        });
       }
-      // For other types, let the Link component handle navigation
     },
-    [isHomePage]
+    [isHomePage, sectionRefs]
   );
 
-  // Get the appropriate href based on item type and current page
+  // Get href for nav items
   const getItemHref = useCallback(
     (item: NavItem): string => {
       if (item.type === "section" && isHomePage && item.sectionId) {
         return `#${item.sectionId}`;
       }
-
-      if (item.type === "external" || item.type === "pdf") {
-        return item.path;
-      }
-
       return item.path;
     },
     [isHomePage]

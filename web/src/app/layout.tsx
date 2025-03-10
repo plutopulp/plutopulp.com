@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ToastProvider from "@/components/ui/ToastProvider";
 import Navbar from "@/components/layout/Navbar";
+import { NavigationProvider } from "@/contexts/NavigationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pluto Pulp | Portfolio",
-  description: "Personal portfolio and contact information for Pluto Pulp",
+  title: "Yvan Buggy | Portfolio",
+  description: "Personal portfolio and contact information for Yvan Buggy.",
 };
 
 export default function RootLayout({
@@ -31,8 +32,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          <main>{children}</main>
+          <NavigationProvider>
+            <Navbar />
+            <main>{children}</main>
+          </NavigationProvider>
           <ToastProvider />
         </ThemeProvider>
       </body>

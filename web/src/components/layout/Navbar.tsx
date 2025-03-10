@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useNavigation } from "@/hooks/useNavigation";
+import { useContext } from "react";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { colors } from "@/lib/colors";
+import { NavigationContext } from "@/contexts/NavigationContext";
 
 // Define types for NavLink props
 interface NavLinkProps {
@@ -17,7 +17,7 @@ interface NavLinkProps {
 
 export default function Navbar() {
   const { isActive, handleNavigation, getItemHref, isScrolled, navItems } =
-    useNavigation();
+    useContext(NavigationContext);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -40,13 +40,6 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-start h-16">
-          {/* Logo or brand name */}
-          <div className="mr-8">
-            <Link href="/" className="text-white text-lg font-bold">
-              Portfolio
-            </Link>
-          </div>
-
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
