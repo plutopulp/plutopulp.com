@@ -6,8 +6,9 @@ import SpiralCircles from "@/components/landing/SpiralCircles";
 import { HeroHeader } from "@/components/landing/HeroHeader";
 import { ActionButton } from "@/components/landing/ActionButton";
 import { colors } from "@/lib/colors";
+import { SectionProps } from "./types";
 
-const HeroSection: React.FC = () => {
+const HeroSection: React.FC<SectionProps> = ({ sectionRef }) => {
   const [isAnimationActive, setIsAnimationActive] = useState(false);
 
   // Activate animations after component mounts
@@ -20,7 +21,7 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="hero" className="min-h-screen">
+    <section id="hero" className="min-h-screen" ref={sectionRef}>
       <div
         className="relative min-h-screen overflow-hidden"
         style={{ backgroundColor: colors.sections.hero }}

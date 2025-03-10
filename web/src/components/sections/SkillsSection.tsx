@@ -6,6 +6,7 @@ import SkillsSection from "@/components/skills/SkillsSection";
 import { motion, useInView } from "framer-motion";
 import { skillGroups } from "@/lib/skills";
 import { colors } from "@/lib/colors";
+import { SectionProps } from "./types";
 
 // Use the predefined skill groups from the skills.ts library
 const skillsData = {
@@ -30,7 +31,7 @@ const sectionVariants = {
   },
 };
 
-const SkillsSectionComponent: React.FC = () => {
+const SkillsSectionComponent: React.FC<SectionProps> = ({ sectionRef }) => {
   // Individual refs for each section
   const frontendRef = useRef(null);
   const backendRef = useRef(null);
@@ -49,6 +50,7 @@ const SkillsSectionComponent: React.FC = () => {
       backgroundColor={colors.sections.skills}
       title="Skills"
       fullHeight={true}
+      sectionRef={sectionRef}
     >
       <div className="grid md:grid-cols-2 gap-0 max-w-5xl mx-auto">
         {/* Frontend Section */}

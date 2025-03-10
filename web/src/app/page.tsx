@@ -14,21 +14,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <section id="hero" ref={sectionRefs.hero}>
-        <HeroSection />
-      </section>
-      <section id="about" ref={sectionRefs.about}>
-        <AboutSection />
-      </section>
-      <section id="skills" ref={sectionRefs.skills}>
-        <SkillsSection />
-      </section>
-      <section id="projects" ref={sectionRefs.projects}>
-        <ProjectsSection />
-      </section>
-      <section id="contact" ref={sectionRefs.contact}>
-        <ContactSectionWrapper />
-      </section>
+      <HeroSection sectionRef={sectionRefs.hero} />
+      <AboutSection sectionRef={sectionRefs.about} />
+      <SkillsSection sectionRef={sectionRefs.skills} />
+      <ProjectsSection sectionRef={sectionRefs.projects} />
+      <ContactSectionWrapper sectionRef={sectionRefs.contact} />
     </main>
   );
 }

@@ -6,8 +6,9 @@ import AboutBio from "@/components/about/AboutBio";
 import ProfileImage from "@/components/about/ProfileImage";
 import NavigationButtons from "@/components/about/NavigationButtons";
 import { colors } from "@/lib/colors";
+import { SectionProps } from "./types";
 
-const AboutSection: React.FC = () => {
+const AboutSection: React.FC<SectionProps> = ({ sectionRef }: SectionProps) => {
   // Scroll handlers for navigation
   const handleSkillsClick = () => {
     const skillsSection = document.getElementById("skills");
@@ -25,6 +26,7 @@ const AboutSection: React.FC = () => {
       backgroundColor={colors.sections.about}
       title="About"
       fullHeight={true}
+      sectionRef={sectionRef}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         {/* Text content */}

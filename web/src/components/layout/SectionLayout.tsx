@@ -1,10 +1,11 @@
-import React, { ReactNode, useRef } from "react";
+import { ReactNode, useRef, RefObject } from "react";
 import { Heading1 } from "@/components/ui/Typography";
 import { getContrastText } from "@/lib/utils";
 import { useInView, motion } from "framer-motion";
 
 interface SectionLayoutProps {
   id: string;
+  sectionRef: RefObject<HTMLElement | null>;
   title?: string;
   children: ReactNode;
   backgroundColor?: string;
@@ -29,6 +30,7 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
   backgroundColor = "white",
   className = "",
   fullHeight = true, // Default to full height
+  sectionRef,
 }) => {
   // Get the appropriate text color based on background
   const textColorClass = getContrastText(
@@ -42,6 +44,7 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
   return (
     <section
       id={id}
+      ref={sectionRef}
       className={`py-16 w-full ${
         fullHeight
           ? "md:min-h-screen md:flex md:flex-col md:justify-center"
