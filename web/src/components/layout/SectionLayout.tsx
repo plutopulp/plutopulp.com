@@ -1,6 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { Heading1 } from "@/components/ui/Typography";
 import { getContrastText } from "@/lib/utils";
+import { useInView, motion } from "framer-motion";
 
 interface SectionLayoutProps {
   id: string;
@@ -35,6 +36,8 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
     "text-gray-800",
     "text-white"
   );
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   return (
     <section
@@ -48,11 +51,18 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
     >
       <div className={`container mx-auto px-4 ${className}`}>
         {title && (
-          <Heading1
-            className={`text-center mb-14 uppercase tracking-wider ${textColorClass}`}
+          <motion.h1
+            ref={ref}
+            initial={{ opacity: 0, x: -100 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
           >
-            {title}
-          </Heading1>
+            <Heading1
+              className={`text-center mb-14 uppercase tracking-wider ${textColorClass}`}
+            >
+              {title}
+            </Heading1>
+          </motion.h1>
         )}
         <div className="max-w-7xl mx-auto">{children}</div>
       </div>
