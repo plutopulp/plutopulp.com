@@ -17,9 +17,9 @@ export const ActionButton = ({
   children,
   icon,
 }: ActionButtonProps) => {
-  // Create custom icon with rotation instead of translation
+  // Create custom icon with rotation to point downwards (90 degrees clockwise)
   const rotatingIcon = (
-    <div className="transition-transform duration-300 group-hover:rotate-90">
+    <div className="transition-transform duration-200 group-hover:rotate-90">
       {icon}
     </div>
   );

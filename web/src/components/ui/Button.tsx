@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { MouseEvent } from "react";
 import { cn } from "@/lib/utils";
 import { ButtonProps } from "@/types/ui";
-import { colors } from "@/lib/colors";
 
 const buttonSizes = {
   sm: "py-1 px-2 text-sm",
@@ -11,45 +10,36 @@ const buttonSizes = {
   lg: "py-3 px-6 text-lg",
 };
 
-// Define TypeScript type for button styles
-interface ButtonStyle {
-  bg: string;
-  hoverBg: string;
-  text: string;
-  border: string;
-  hoverText?: string;
-}
-
-// Button style configurations by variant
-const buttonStyles: Record<string, ButtonStyle> = {
+// Map variants to Tailwind classes
+const variantClasses = {
   primary: {
-    bg: colors.button.primary.bg,
-    hoverBg: colors.button.primary.hover,
-    text: colors.text.inverted,
-    border: "transparent",
+    base: "bg-[#5893AB] text-white border border-transparent",
+    hover: "hover:bg-[#47768D] hover:text-white",
   },
   secondary: {
-    bg: colors.button.secondary.bg,
-    hoverBg: colors.button.secondary.hover,
-    text: colors.button.secondary.text,
-    border: "transparent",
+    base: "bg-gray-100 text-gray-800 border border-transparent",
+    hover: "hover:bg-gray-200 hover:text-gray-800",
   },
   outline: {
-    bg: "transparent",
-    hoverBg: colors.button.outline.hover_bg,
-    text: colors.button.outline.text,
-    hoverText: colors.button.outline.hover_text,
-    border: colors.button.outline.border,
+    base: "bg-transparent text-[#5893AB] border border-[#5893AB]",
+    hover: "hover:bg-[#5893AB] hover:text-[#EEF5F8]",
   },
   ghost: {
-    bg: "transparent",
-    hoverBg: colors.button.ghost.hover,
-    text: colors.button.ghost.text,
-    border: "transparent",
+    base: "bg-transparent text-gray-800 border border-transparent",
+    hover: "hover:bg-gray-100 hover:text-gray-800",
   },
 };
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+// Extended ButtonProps to include href
+interface ExtendedButtonProps extends Omit<ButtonProps, "onClick"> {
+  href?: string;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
+}
+
+export const Button = React.forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ExtendedButtonProps
+>(
   (
     {
       children,
@@ -61,17 +51,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       leftIcon,
       rightIcon,
       onClick,
+      href,
       ...props
     },
     ref
   ) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const styles = buttonStyles[variant];
     const sizeClassName = buttonSizes[size];
+    const variantStyle = variantClasses[variant];
 
     const baseClassName = cn(
       // Base button styles
-      "inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 ease-in-out cursor-pointer",
+      "group inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 ease-in-out cursor-pointer",
+      // Variant specific styles
+      variantStyle.base,
+      variantStyle.hover,
       // Handle disabled state
       disabled
         ? "opacity-50 cursor-not-allowed"
@@ -81,29 +74,38 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className
     );
 
-    const buttonStyle = {
-      backgroundColor: isHovered ? styles.hoverBg : styles.bg,
-      color: isHovered && styles.hoverText ? styles.hoverText : styles.text,
-      borderWidth: "1px",
-      borderStyle: "solid",
-      borderColor: styles.border,
-    };
-
-    return (
-      <button
-        ref={ref}
-        className={baseClassName}
-        type={type}
-        style={buttonStyle}
-        disabled={disabled}
-        onClick={onClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        {...props}
-      >
+    const content = (
+      <>
         {leftIcon && <span className="mr-2">{leftIcon}</span>}
         {children}
         {rightIcon && <span className="ml-2">{rightIcon}</span>}
+      </>
+    );
+
+    if (href) {
+      return (
+        <a
+          ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+          className={baseClassName}
+          href={href}
+          onClick={onClick}
+          {...(props as React.HTMLAttributes<HTMLAnchorElement>)}
+        >
+          {content}
+        </a>
+      );
+    }
+
+    return (
+      <button
+        ref={ref as React.ForwardedRef<HTMLButtonElement>}
+        className={baseClassName}
+        type={type}
+        disabled={disabled}
+        onClick={onClick}
+        {...props}
+      >
+        {content}
       </button>
     );
   }
