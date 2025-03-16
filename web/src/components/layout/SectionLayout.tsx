@@ -54,9 +54,9 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
     >
       <div className={`container mx-auto px-4 ${className}`}>
         {title && (
-          <motion.h1
+          <motion.div
             ref={ref}
-            initial={{ opacity: 0, x: -100 }}
+            initial={{ opacity: 0, x: -200 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
           >
@@ -65,7 +65,7 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({
             >
               {title}
             </Heading1>
-          </motion.h1>
+          </motion.div>
         )}
         <div className="max-w-7xl mx-auto">{children}</div>
       </div>

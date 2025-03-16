@@ -1,24 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useContext, useMemo } from "react";
 import SectionLayout from "@/components/layout/SectionLayout";
 import AboutBio from "@/components/about/AboutBio";
 import ProfileImage from "@/components/about/ProfileImage";
 import NavigationButtons from "@/components/about/NavigationButtons";
 import { colors } from "@/lib/colors";
 import { SectionProps } from "./types";
+import { useInView, motion } from "framer-motion";
+import { NavigationContext } from "@/contexts/NavigationContext";
 
 const AboutSection: React.FC<SectionProps> = ({ sectionRef }: SectionProps) => {
-  // Scroll handlers for navigation
-  const handleSkillsClick = () => {
-    const skillsSection = document.getElementById("skills");
-    skillsSection?.scrollIntoView({ behavior: "smooth" });
-  };
+  const { handleNavigation, navItems } = useContext(NavigationContext);
 
-  const handleProjectsClick = () => {
-    const projectsSection = document.getElementById("projects");
-    projectsSection?.scrollIntoView({ behavior: "smooth" });
-  };
+  // Find skills and projects nav items
+  const skillsNavItem = useMemo(
+    () => navItems.find((item) => item.id === "skills"),
+    [navItems]
+  );
+  const projectsNavItem = useMemo(
+    () => navItems.find((item) => item.id === "projects"),
+    [navItems]
+  );
+
+  // Create separate refs for each motion element
+  const bioRef = useRef(null);
+  const imageRef = useRef(null);
+  const buttonsRef = useRef(null);
+
+  // Track in-view state for each element
+  const isBioInView = useInView(bioRef, { once: true });
+  const isImageInView = useInView(imageRef, { once: true });
+  const isButtonsInView = useInView(buttonsRef, { once: true });
 
   return (
     <SectionLayout
@@ -30,21 +43,46 @@ const AboutSection: React.FC<SectionProps> = ({ sectionRef }: SectionProps) => {
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         {/* Text content */}
-        <div className="md:col-span-7">
+        <motion.div
+          ref={bioRef}
+          initial={{ opacity: 0, x: -200 }}
+          animate={isBioInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -200 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="md:col-span-7"
+        >
           <AboutBio bgColor={colors.sections.about} />
-        </div>
+        </motion.div>
 
         {/* Image */}
-        <div className="md:col-span-5">
+        <motion.div
+          ref={imageRef}
+          initial={{ opacity: 0, x: 200 }}
+          animate={
+            isImageInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 200 }
+          }
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="md:col-span-5"
+        >
           <ProfileImage />
-        </div>
+        </motion.div>
       </div>
 
       {/* Buttons */}
-      <NavigationButtons
-        onSkillsClick={handleSkillsClick}
-        onProjectsClick={handleProjectsClick}
-      />
+      <motion.div
+        ref={buttonsRef}
+        initial={{ opacity: 0 }}
+        animate={isButtonsInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
+        <NavigationButtons
+          onSkillsClick={(e) =>
+            skillsNavItem && handleNavigation(e, skillsNavItem)
+          }
+          onProjectsClick={(e) =>
+            projectsNavItem && handleNavigation(e, projectsNavItem)
+          }
+        />
+      </motion.div>
     </SectionLayout>
   );
 };

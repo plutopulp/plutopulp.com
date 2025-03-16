@@ -3,8 +3,8 @@ import { ArrowDownIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/Button";
 
 interface NavigationButtonsProps {
-  onSkillsClick: () => void;
-  onProjectsClick: () => void;
+  onSkillsClick: (e: React.MouseEvent) => void;
+  onProjectsClick: (e: React.MouseEvent) => void;
 }
 
 export default function NavigationButtons({
