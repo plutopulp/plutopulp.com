@@ -108,19 +108,3 @@ export function Caption({ children, className, style }: SimpleTypographyProps) {
     </Typography>
   );
 }
-
-export function TechStack({
-  children,
-  className,
-  style,
-}: SimpleTypographyProps) {
-  return (
-    <Typography
-      variant="body"
-      className={cn("font-medium", className)}
-      style={style}
-    >
-      {children}
-    </Typography>
-  );
-}

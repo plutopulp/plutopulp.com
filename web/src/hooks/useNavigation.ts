@@ -20,7 +20,7 @@ export interface NavItem {
 
 // Define a type for section references
 export type SectionRefs = {
-  [key in SectionId]?: RefObject<HTMLElement | null>;
+  [key in SectionId]: RefObject<HTMLElement | null>;
 };
 
 // Type for navigation event handlers

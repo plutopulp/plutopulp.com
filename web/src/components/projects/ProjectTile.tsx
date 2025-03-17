@@ -3,7 +3,7 @@ import { useHover } from "@uidotdev/usehooks";
 import { useState } from "react";
 import Image from "next/image";
 import { ProjectCardProps } from "@/types/project";
-import { Heading2, TechStack } from "@/components/ui/Typography";
+import { Heading2, Paragraph } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { ProjectModal } from "./ProjectModal";
@@ -46,7 +46,9 @@ export default function ProjectTile({ project }: ProjectCardProps) {
             transform: isHovered ? "translateY(25%)" : "translateY(0%)",
           }}
         >
-          <Heading2 className="text-center font-bold">{project.title}</Heading2>
+          <Heading2 className="text-center font-bold text-gray-600">
+            {project.title}
+          </Heading2>
         </div>
 
         {/* Tech stack - slides down on hover */}
@@ -60,12 +62,12 @@ export default function ProjectTile({ project }: ProjectCardProps) {
             transform: isHovered ? "translateY(40%)" : "translateY(0%)",
           }}
         >
-          <TechStack
+          <Paragraph
             className="text-center font-semibold"
             style={techStackStyle}
           >
             {project.technologies.brief.join(" - ")}
-          </TechStack>
+          </Paragraph>
         </div>
 
         {/* Image container - fades out on hover */}
