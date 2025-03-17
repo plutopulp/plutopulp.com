@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ToastProvider from "@/components/ui/ToastProvider";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import { NavigationProvider } from "@/contexts/NavigationContext";
 
 const geistSans = Geist({
@@ -29,12 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <NavigationProvider>
             <Navbar />
-            <main>{children}</main>
+            <main className="flex-grow">{children}</main>
+            <Footer />
           </NavigationProvider>
           <ToastProvider />
         </ThemeProvider>
