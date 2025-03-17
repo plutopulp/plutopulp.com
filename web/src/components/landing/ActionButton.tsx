@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 import { Button } from "@/components/ui/Button";
+import { NavigationContext } from "@/contexts/NavigationContext";
 
 interface ActionButtonProps {
-  href: string;
   isAnimationActive: boolean;
   children: ReactNode;
   icon: ReactNode;
@@ -12,11 +12,12 @@ interface ActionButtonProps {
  * Action button component with animated entry and rotating icon
  */
 export const ActionButton = ({
-  href,
   isAnimationActive,
   children,
   icon,
 }: ActionButtonProps) => {
+  const { handleNavigation, findNavItem } = useContext(NavigationContext);
+  const aboutNavItem = findNavItem("about");
   // Create custom icon with rotation to point downwards (90 degrees clockwise)
   const rotatingIcon = (
     <div className="transition-transform duration-200 group-hover:rotate-90">
@@ -34,7 +35,7 @@ export const ActionButton = ({
     >
       <Button
         variant="outline"
-        href={href}
+        onClick={(e) => aboutNavItem && handleNavigation(e, aboutNavItem)}
         rightIcon={rotatingIcon}
         className="border-[#5893AB] text-white hover:text-white"
       >

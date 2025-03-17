@@ -1,17 +1,14 @@
 "use client";
 
 import React, { createContext, ReactNode, useRef } from "react";
-import { useNavigation, NavItem, SectionRefs } from "@/hooks/useNavigation";
+import {
+  useNavigation,
+  SectionRefs,
+  NavigationResult,
+} from "@/hooks/useNavigation";
 
 // Define the context type
-interface NavigationContextType {
-  isHomePage: boolean;
-  isScrolled: boolean;
-  activeSection: string | null;
-  isActive: (item: NavItem) => boolean;
-  handleNavigation: (e: React.MouseEvent, item: NavItem) => void;
-  getItemHref: (item: NavItem) => string;
-  navItems: NavItem[];
+interface NavigationContextType extends NavigationResult {
   sectionRefs: SectionRefs;
 }
 

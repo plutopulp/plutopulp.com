@@ -4,21 +4,30 @@ import { usePathname } from "next/navigation";
 // Define types for navigation
 export type NavItemType = "section" | "page" | "external" | "pdf";
 
+// Define valid section IDs
+export type SectionId = "hero" | "about" | "skills" | "projects" | "contact";
+
+// Define valid navigation item IDs
+export type NavItemId = "home" | "about" | "skills" | "projects" | "contact";
+
 export interface NavItem {
-  id: string;
+  id: NavItemId;
   label: string;
   path: string;
   type: NavItemType;
-  sectionId?: string; // Only for section type
+  sectionId?: SectionId; // Only for section type
 }
 
 // Define a type for section references
 export type SectionRefs = {
-  [sectionId: string]: RefObject<HTMLElement | null>;
+  [key in SectionId]?: RefObject<HTMLElement | null>;
 };
 
+// Type for navigation event handlers
+export type NavigationHandler = (e: React.MouseEvent, item: NavItem) => void;
+
 // Navigation items configuration
-export const navItems: NavItem[] = [
+export const navItems: ReadonlyArray<NavItem> = [
   { id: "home", label: "Home", path: "/", type: "section", sectionId: "hero" },
   {
     id: "about",
@@ -50,8 +59,14 @@ export const navItems: NavItem[] = [
   },
 ];
 
+// Type for visibility score calculation
+type VisibilityScore = number;
+
 // Calculate section visibility score
-const calculateSectionVisibility = (rect: DOMRect, viewportHeight: number) => {
+const calculateSectionVisibility = (
+  rect: DOMRect,
+  viewportHeight: number
+): VisibilityScore => {
   const visibleTop = Math.max(0, rect.top);
   const visibleBottom = Math.min(viewportHeight, rect.bottom);
   const visibleHeight = Math.max(0, visibleBottom - visibleTop);
@@ -65,12 +80,12 @@ const calculateSectionVisibility = (rect: DOMRect, viewportHeight: number) => {
 };
 
 // Find most visible section
-const findMostVisibleSection = (sectionRefs: SectionRefs): string | null => {
-  let bestSection = null;
-  let bestVisibility = -1;
+const findMostVisibleSection = (sectionRefs: SectionRefs): SectionId | null => {
+  let bestSection: SectionId | null = null;
+  let bestVisibility: VisibilityScore = -1;
 
   for (const [sectionId, ref] of Object.entries(sectionRefs)) {
-    const section = ref.current;
+    const section = ref?.current;
     if (!section) continue;
 
     const visibility = calculateSectionVisibility(
@@ -80,7 +95,7 @@ const findMostVisibleSection = (sectionRefs: SectionRefs): string | null => {
 
     if (visibility > bestVisibility) {
       bestVisibility = visibility;
-      bestSection = sectionId;
+      bestSection = sectionId as SectionId;
     }
   }
 
@@ -88,7 +103,9 @@ const findMostVisibleSection = (sectionRefs: SectionRefs): string | null => {
 };
 
 // Check if page is scrolled past hero section
-const checkIfScrolled = (aboutRef: RefObject<HTMLElement | null>) => {
+const checkIfScrolled = (
+  aboutRef: RefObject<HTMLElement | null> | undefined
+): boolean => {
   if (aboutRef?.current) {
     const aboutRect = aboutRef.current.getBoundingClientRect();
     return aboutRect.top <= 0;
@@ -96,15 +113,26 @@ const checkIfScrolled = (aboutRef: RefObject<HTMLElement | null>) => {
   return window.scrollY > window.innerHeight * 0.8;
 };
 
-export function useNavigation(sectionRefs: SectionRefs) {
+export interface NavigationResult {
+  isHomePage: boolean;
+  isScrolled: boolean;
+  activeSection: SectionId | null;
+  isActive: (item: NavItem) => boolean;
+  handleNavigation: NavigationHandler;
+  getItemHref: (item: NavItem) => string;
+  navItems: ReadonlyArray<NavItem>;
+  findNavItem: (itemId: NavItemId) => NavItem | undefined;
+}
+
+export function useNavigation(sectionRefs: SectionRefs): NavigationResult {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<SectionId | null>(null);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const isHomePage = pathname === "/";
 
   // Handle scroll events
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       setIsScrolled(checkIfScrolled(sectionRefs.about));
 
       if (isHomePage) {
@@ -132,8 +160,13 @@ export function useNavigation(sectionRefs: SectionRefs) {
     [pathname, isHomePage, activeSection]
   );
 
+  // Find nav item in navItems array
+  const findNavItem = useCallback((itemId: NavItemId): NavItem | undefined => {
+    return navItems.find((item) => item.id === itemId);
+  }, []);
+
   // Handle navigation clicks
-  const handleNavigation = useCallback(
+  const handleNavigation = useCallback<NavigationHandler>(
     (e: React.MouseEvent, item: NavItem) => {
       if (item.type === "section" && isHomePage && item.sectionId) {
         e.preventDefault();
@@ -164,5 +197,6 @@ export function useNavigation(sectionRefs: SectionRefs) {
     handleNavigation,
     getItemHref,
     navItems,
+    findNavItem,
   };
 }

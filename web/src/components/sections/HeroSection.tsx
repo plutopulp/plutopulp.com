@@ -40,7 +40,6 @@ const HeroSection: React.FC<SectionProps> = ({ sectionRef }) => {
           />
 
           <ActionButton
-            href="#about"
             isAnimationActive={isAnimationActive}
             icon={<ArrowRightIcon className="w-5 h-5" />}
           >

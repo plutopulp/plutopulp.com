@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useContext, useMemo } from "react";
+import React, { useRef } from "react";
 import SectionLayout from "@/components/layout/SectionLayout";
 import AboutBio from "@/components/about/AboutBio";
 import ProfileImage from "@/components/about/ProfileImage";
@@ -8,21 +8,8 @@ import NavigationButtons from "@/components/about/NavigationButtons";
 import { colors } from "@/lib/colors";
 import { SectionProps } from "./types";
 import { useInView, motion } from "framer-motion";
-import { NavigationContext } from "@/contexts/NavigationContext";
 
 const AboutSection: React.FC<SectionProps> = ({ sectionRef }: SectionProps) => {
-  const { handleNavigation, navItems } = useContext(NavigationContext);
-
-  // Find skills and projects nav items
-  const skillsNavItem = useMemo(
-    () => navItems.find((item) => item.id === "skills"),
-    [navItems]
-  );
-  const projectsNavItem = useMemo(
-    () => navItems.find((item) => item.id === "projects"),
-    [navItems]
-  );
-
   // Create separate refs for each motion element
   const bioRef = useRef(null);
   const imageRef = useRef(null);
@@ -74,14 +61,7 @@ const AboutSection: React.FC<SectionProps> = ({ sectionRef }: SectionProps) => {
         animate={isButtonsInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
       >
-        <NavigationButtons
-          onSkillsClick={(e) =>
-            skillsNavItem && handleNavigation(e, skillsNavItem)
-          }
-          onProjectsClick={(e) =>
-            projectsNavItem && handleNavigation(e, projectsNavItem)
-          }
-        />
+        <NavigationButtons />
       </motion.div>
     </SectionLayout>
   );
