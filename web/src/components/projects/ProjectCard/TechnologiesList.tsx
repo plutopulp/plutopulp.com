@@ -15,16 +15,19 @@ export default function TechnologiesList({
   category = "other",
 }: TechnologiesListProps) {
   const techSkills = useMemo(() => {
-    return technologies.map((techId) => {
-      // Try to find the skill in the skills object
-      return (
-        skills[techId] || {
-          id: techId,
-          name: techId.charAt(0).toUpperCase() + techId.slice(1), // Fallback: capitalize the ID
-          icon: "general.svg", // Fallback icon
-        }
-      );
-    });
+    return technologies
+      .map((techId) => {
+        // Try to find the skill in the skills object
+        return (
+          skills[techId] || {
+            id: techId,
+            name: techId.charAt(0).toUpperCase() + techId.slice(1), // Fallback: capitalize the ID
+            icon: "general.svg", // Fallback icon
+            publish: true, // Default to showing custom skills
+          }
+        );
+      })
+      .filter((skill) => skill.publish); // Only show published skills
   }, [technologies]);
 
   if (techSkills.length === 0) return null;

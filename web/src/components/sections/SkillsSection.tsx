@@ -8,12 +8,12 @@ import { skillGroups } from "@/lib/skills";
 import { colors } from "@/lib/colors";
 import { SectionProps } from "./types";
 
-// Use the predefined skill groups from the skills.ts library
+// Use the predefined skill groups from the skills.ts library and filter for published only
 const skillsData = {
-  frontend: skillGroups.frontend,
-  backend: skillGroups.backend,
-  devops: skillGroups.devops,
-  other: skillGroups.other,
+  frontend: skillGroups.frontend.filter((skill) => skill.publish),
+  backend: skillGroups.backend.filter((skill) => skill.publish),
+  devops: skillGroups.devops.filter((skill) => skill.publish),
+  other: skillGroups.other.filter((skill) => skill.publish),
 };
 
 // Animation variants for individual sections
