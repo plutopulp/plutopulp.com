@@ -1,18 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import FormInput from "./FormInput";
 import FormTextArea from "./FormTextArea";
 import { Button } from "@/components/ui/Button";
 import { validationRules } from "@/lib/validation";
-import { notify } from "@/lib/toast";
 import { ContactFormInputs, SubmissionStatus } from "@/types/form";
 import { colors } from "@/lib/colors";
+import { useEmailJS } from "@/hooks/useEmailJS";
+import { useContactFormSubmission } from "@/hooks/useContactFormSubmission";
 
 export const ContactForm = () => {
-  const [status, setStatus] = useState<SubmissionStatus>("idle");
-
+  const { emailjsInitialized, configError } = useEmailJS();
   const {
     register,
     handleSubmit,
@@ -20,47 +19,16 @@ export const ContactForm = () => {
     reset,
   } = useForm<ContactFormInputs>();
 
-  const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
-    setStatus("submitting");
-
-    // Create a loading toast that we'll update later
-    const loadingToast = notify.loading("Sending your message...", {
-      description: "Please wait while we process your request",
-    });
-
-    try {
-      // For now, just log the form data
-      console.log("Form data submitted:", data);
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Update loading toast to success
-      loadingToast.success("Message sent successfully!", {
-        description: "We'll get back to you soon.",
-      });
-
-      // Reset form after successful submission
-      reset();
-      setStatus("idle");
-    } catch (error) {
-      // Update loading toast to error
-      loadingToast.error("Failed to send message", {
-        description:
-          error instanceof Error
-            ? error.message
-            : "There was a problem sending your message. Please try again.",
-      });
-
-      // Reset status but don't clear the form
-      setStatus("idle");
-    }
-  };
+  const { submitForm, status } = useContactFormSubmission({
+    emailjsInitialized,
+    configError,
+    reset,
+  });
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-2xl p-8 rounded-lg text-white"
+      onSubmit={handleSubmit(submitForm)}
+      className="w-full p-8 rounded-lg text-white"
       style={{
         background: `linear-gradient(to bottom, ${colors.form.gradient.from}, ${colors.form.gradient.to})`,
       }}
@@ -104,26 +72,67 @@ export const ContactForm = () => {
         rows={6}
       />
 
-      <div className="flex justify-between items-center mt-6">
-        <button
-          type="button"
-          onClick={() => reset()}
-          className="text-sm text-gray-300 hover:text-white underline cursor-pointer"
-        >
-          Clear form
-        </button>
+      <FormActions
+        status={status}
+        reset={reset}
+        disabled={
+          status === "submitting" || !emailjsInitialized || !!configError
+        }
+      />
 
-        <Button
-          type="submit"
-          disabled={status === "submitting"}
-          variant="outline"
-          size="md"
-        >
-          {status === "submitting" ? "Sending..." : "Send"}
-        </Button>
-      </div>
+      <FormStatusMessage
+        emailjsInitialized={emailjsInitialized}
+        configError={configError}
+      />
     </form>
   );
 };
+
+// Component for form action buttons
+interface FormActionsProps {
+  status: SubmissionStatus;
+  reset: () => void;
+  disabled: boolean;
+}
+
+const FormActions = ({ status, reset, disabled }: FormActionsProps) => (
+  <div className="flex justify-between items-center mt-6">
+    <button
+      type="button"
+      onClick={() => reset()}
+      className="text-sm text-gray-300 hover:text-white underline cursor-pointer"
+      disabled={status === "submitting"}
+    >
+      Clear form
+    </button>
+
+    <Button type="submit" disabled={disabled} variant="outline" size="md">
+      {status === "submitting" ? "Sending..." : "Send"}
+    </Button>
+  </div>
+);
+
+// Component for displaying status messages
+interface FormStatusMessageProps {
+  emailjsInitialized: boolean;
+  configError: string | null;
+}
+
+const FormStatusMessage = ({
+  emailjsInitialized,
+  configError,
+}: FormStatusMessageProps) => (
+  <>
+    {!emailjsInitialized && !configError && (
+      <p className="text-yellow-300 text-xs mt-2 text-center">
+        Email service is initializing...
+      </p>
+    )}
+
+    {configError && (
+      <p className="text-red-400 text-xs mt-2 text-center">{configError}</p>
+    )}
+  </>
+);
 
 export default ContactForm;

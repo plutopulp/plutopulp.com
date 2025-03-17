@@ -15,7 +15,7 @@ const ContactSectionWrapper: React.FC<SectionProps> = ({ sectionRef }) => {
       fullHeight={true}
       sectionRef={sectionRef}
     >
-      <div className="flex justify-center">
+      <div className="flex justify-center max-w-xl mx-auto">
         <ContactForm />
       </div>
     </SectionLayout>
