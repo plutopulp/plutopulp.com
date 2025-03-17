@@ -1,12 +1,12 @@
 "use client";
 import { useMemo } from "react";
-import { skills } from "@/lib/skills";
+import { skills, SkillGroupName, SkillId } from "@/lib/skills";
 import SkillCell from "@/components/skills/SkillCell";
 
 interface TechnologiesListProps {
-  technologies: string[];
+  technologies: SkillId[];
   textColor?: string;
-  category?: "backend" | "frontend" | "devops" | "other";
+  category?: SkillGroupName;
 }
 
 export default function TechnologiesList({
@@ -35,7 +35,11 @@ export default function TechnologiesList({
   return (
     <div className="flex flex-wrap gap-4">
       {techSkills.map((skill, index) => (
-        <div key={index} className="tech-item" style={{ color: textColor }}>
+        <div
+          key={index}
+          className="tech-item transition-colors duration-200 group-hover:text-[var(--hover-color)]"
+          style={{ color: textColor }}
+        >
           <SkillCell
             name={skill.name}
             icon={skill.icon}

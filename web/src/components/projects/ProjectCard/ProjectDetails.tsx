@@ -3,7 +3,8 @@ import { Project } from "@/types/project";
 import { Heading2, Heading3, Paragraph } from "@/components/ui/Typography";
 import ProjectAnchors from "./ProjectAnchors";
 import TechnologiesList from "./TechnologiesList";
-import { colors } from "@/lib/colors";
+import { getCategoryColorWithOpacity } from "@/lib/colorUtils";
+import { SkillGroupName } from "@/lib/skills";
 
 interface ProjectDetailsProps {
   project: Project;
@@ -12,19 +13,31 @@ interface ProjectDetailsProps {
 export default function ProjectDetails({ project }: ProjectDetailsProps) {
   const { title, meta, description, anchors, technologies } = project;
 
-  // Define category colors based on our color system
-  const categoryColors = {
-    backend: colors.skills.backend + "AA", // 67% opacity
-    frontend: colors.skills.frontend + "AA",
-    devops: colors.skills.devops + "AA",
-    other: colors.skills.other + "AA",
-  };
+  // Prepare all technologies as combined data with their respective categories
+  const allTechnologies = [
+    ...(technologies.backend?.map((tech) => ({
+      tech,
+      category: "backend" as SkillGroupName,
+    })) || []),
+    ...(technologies.frontend?.map((tech) => ({
+      tech,
+      category: "frontend" as SkillGroupName,
+    })) || []),
+    ...(technologies.devops?.map((tech) => ({
+      tech,
+      category: "devops" as SkillGroupName,
+    })) || []),
+    ...(technologies.other?.map((tech) => ({
+      tech,
+      category: "other" as SkillGroupName,
+    })) || []),
+  ];
 
   return (
     <div className="mt-8">
       {/* Title and anchors */}
       <div className="flex justify-between items-center mb-2">
-        <Heading2 className="font-bold text-3xl">{title}</Heading2>
+        <Heading2 className="font-bold text-gray-700">{title}</Heading2>
         <ProjectAnchors anchors={anchors} />
       </div>
 
@@ -42,78 +55,38 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
         </Paragraph>
       </div>
 
-      {/* Technologies section */}
-      <div>
-        <Heading3 className="font-semibold mb-4 text-xl">Built With</Heading3>
+      {/* Technologies section - now as a single row */}
+      {allTechnologies.length > 0 && (
+        <div>
+          <Heading3 className="font-semibold mb-4 text-gray-500">
+            Built With
+          </Heading3>
 
-        {/* Backend technologies */}
-        {technologies.backend && technologies.backend.length > 0 && (
-          <div className="mb-6">
-            <div
-              className="text-sm font-semibold mb-2"
-              style={{ color: categoryColors.backend }}
-            >
-              Backend
-            </div>
-            <TechnologiesList
-              technologies={technologies.backend}
-              textColor={categoryColors.backend}
-              category="backend"
-            />
-          </div>
-        )}
+          <div className="flex flex-wrap gap-4">
+            {allTechnologies.map(({ tech, category }, index) => {
+              // Create CSS variables for normal and hover colors
+              const colorStyle = {
+                "--normal-color": getCategoryColorWithOpacity(category, 0.7),
+                "--hover-color": getCategoryColorWithOpacity(category, 1),
+              } as React.CSSProperties;
 
-        {/* Frontend technologies */}
-        {technologies.frontend && technologies.frontend.length > 0 && (
-          <div className="mb-6">
-            <div
-              className="text-sm font-semibold mb-2"
-              style={{ color: categoryColors.frontend }}
-            >
-              Frontend
-            </div>
-            <TechnologiesList
-              technologies={technologies.frontend}
-              textColor={categoryColors.frontend}
-              category="frontend"
-            />
+              return (
+                <div
+                  key={`${category}-${tech}-${index}`}
+                  className="tech-item group"
+                  style={colorStyle}
+                >
+                  <TechnologiesList
+                    technologies={[tech]}
+                    textColor="var(--normal-color)"
+                    category={category}
+                  />
+                </div>
+              );
+            })}
           </div>
-        )}
-
-        {/* DevOps technologies */}
-        {technologies.devops && technologies.devops.length > 0 && (
-          <div className="mb-6">
-            <div
-              className="text-sm font-semibold mb-2"
-              style={{ color: categoryColors.devops }}
-            >
-              DevOps
-            </div>
-            <TechnologiesList
-              technologies={technologies.devops}
-              textColor={categoryColors.devops}
-              category="devops"
-            />
-          </div>
-        )}
-
-        {/* Other technologies */}
-        {technologies.other && technologies.other.length > 0 && (
-          <div className="mb-6">
-            <div
-              className="text-sm font-semibold mb-2"
-              style={{ color: categoryColors.other }}
-            >
-              Other
-            </div>
-            <TechnologiesList
-              technologies={technologies.other}
-              textColor={categoryColors.other}
-              category="other"
-            />
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { SkillId } from "@/lib/skills";
+
 /**
  * Technology used in a project
  */
@@ -36,22 +38,15 @@ export interface Project {
   description: string;
   technologies: {
     brief: string[]; // Display names for brief overview
-    backend: string[]; // Skill IDs for backend technologies
-    frontend: string[]; // Skill IDs for frontend technologies
-    devops?: string[]; // Skill IDs for devops technologies
-    other?: string[]; // Skill IDs for other technologies
+    backend: SkillId[]; // Skill IDs for backend technologies
+    frontend: SkillId[]; // Skill IDs for frontend technologies
+    devops?: SkillId[]; // Skill IDs for devops technologies
+    other?: SkillId[]; // Skill IDs for other technologies
   };
   learnings: string[];
   anchors: Anchor[];
   image: string;
   sliderMedia: SliderMedia[];
-}
-
-/**
- * Props for project card component
- */
-export interface ProjectCardProps {
-  project: Project;
 }
 
 /**

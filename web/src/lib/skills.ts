@@ -2,7 +2,7 @@
  * Skill/Technology interface to represent any technical skill
  */
 export interface Skill {
-  id: string;
+  id: SkillId;
   name: string;
   icon: string;
   link?: string;
@@ -10,9 +10,65 @@ export interface Skill {
 }
 
 /**
+ * Define all valid skill IDs as a union type
+ * This provides better type checking and autocompletion
+ */
+export type SkillId =
+  // Frontend skills
+  | "javascript"
+  | "typescript"
+  | "html"
+  | "css"
+  | "reactjs"
+  | "nextjs"
+  | "tailwind"
+  | "styledcomponents"
+  | "semanticui"
+  | "bootstrap"
+  | "chartjs"
+  | "d3js"
+  | "figma"
+  | "visx"
+  | "webpack"
+  | "yarn"
+  // Backend skills
+  | "python"
+  | "fastapi"
+  | "django"
+  | "flask"
+  | "php"
+  | "restapi"
+  | "postgresql"
+  | "celery"
+  | "mongodb"
+  | "mysql"
+  | "rabbitmq"
+  | "spacy"
+  | "redis"
+  | "sqlalchemy"
+  | "poetry"
+  | "langchain"
+  | "huggingface"
+  // DevOps skills
+  | "docker"
+  | "kubernetes"
+  | "linux"
+  | "git"
+  | "heroku"
+  | "bash"
+  | "githubactions"
+  | "grafana"
+  | "prometheus"
+  | "loki"
+  // Other skills
+  | "c"
+  | "latex"
+  | "gnuplot";
+
+/**
  * All skills defined in a single place for reuse across the application
  */
-export const skills: Record<string, Skill> = {
+export const skills: Record<SkillId, Skill> = {
   // Frontend related
   javascript: {
     id: "javascript",
@@ -347,12 +403,7 @@ export const skills: Record<string, Skill> = {
 /**
  * Skill groups that can be customized/renamed without changing the underlying skills
  */
-export type SkillGroupName =
-  | "frontend"
-  | "backend"
-  | "devops"
-  | "other"
-  | string;
+export type SkillGroupName = "frontend" | "backend" | "devops" | "other";
 
 /**
  * Predefined skill groups - organized by category
@@ -418,7 +469,7 @@ export const skillGroups: Record<SkillGroupName, Skill[]> = {
  * Helper function to create a custom group of skills
  * Only includes skills that are marked for publishing
  */
-export function createSkillGroup(skillIds: string[]): Skill[] {
+export function createSkillGroup(skillIds: SkillId[]): Skill[] {
   return skillIds
     .map((id) => skills[id])
     .filter((skill) => skill && skill.publish);

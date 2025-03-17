@@ -201,17 +201,11 @@ const deviculumProject: Project = {
       caption: "An example Blooms taxonomy of verbs.",
     },
     {
-      source: `${projectImageDirs.deviculum}/outcomes.png`,
-      type: "image",
-      padding: "5%",
-      caption: "An example list of learning outcomes for a module.",
-    },
-    {
-      source: `${projectImageDirs.deviculum}/blooms-analysis.png`,
+      source: `${projectImageDirs.deviculum}/taxonomy-overlap2.png`,
       type: "image",
       padding: "5%",
       caption:
-        "A blooms taxonomy analysis visualised via a chord chart and stacked bar chart.",
+        "A chord diagram representing the verb overlap between Blooms taxonomy categories.",
     },
     {
       source: `${projectVideoDirs.deviculum}/deviculum.mp4`,

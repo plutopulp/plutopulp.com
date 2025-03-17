@@ -2,14 +2,18 @@
 import { useHover } from "@uidotdev/usehooks";
 import { useState } from "react";
 import Image from "next/image";
-import { ProjectCardProps } from "@/types/project";
+import { Project } from "@/types/project";
 import { Heading2, Paragraph } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { ProjectModal } from "./ProjectModal";
 import { colors } from "@/lib/colors";
 
-export default function ProjectTile({ project }: ProjectCardProps) {
+export interface ProjectTileProps {
+  project: Project;
+}
+
+export default function ProjectTile({ project }: ProjectTileProps) {
   const [ref, isHovered] = useHover();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

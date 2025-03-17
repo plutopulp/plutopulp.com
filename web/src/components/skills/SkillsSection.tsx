@@ -2,14 +2,15 @@
 
 import React from "react";
 import SkillCell from "./SkillCell";
-import { Skill } from "@/lib/skills";
+import { Skill, SkillGroupName } from "@/lib/skills";
 import { colors } from "@/lib/colors";
+import { Heading3 } from "../ui/Typography";
 
 interface SkillsSectionProps {
   title: string;
   skills: Skill[];
   inView?: boolean;
-  category?: "backend" | "frontend" | "devops" | "other";
+  category?: SkillGroupName;
 }
 
 /**
@@ -47,15 +48,15 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   };
 
   return (
-    <div className="py-4 px-4">
-      <h3
-        className="text-2xl font-light mb-8 text-center"
+    <div className="py-4 px-2 md:px-4">
+      <Heading3
+        className="mb-4 md:mb-8 text-center opacity-60"
         style={{ color: getCategoryColor() }}
       >
         {title}
-      </h3>
+      </Heading3>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 justify-items-center">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 justify-items-center">
         {skills.map((skill, index) => (
           <SkillCell
             key={skill.name}
