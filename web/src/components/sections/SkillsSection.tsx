@@ -77,25 +77,29 @@ const SkillsSectionComponent: React.FC<SectionProps> = ({ sectionRef }) => {
   };
 
   const sectionInView = {
-    frontend: useInView(sectionRefs.frontend, { once: true, amount: 0.2 }),
-    backend: useInView(sectionRefs.backend, { once: true, amount: 0.2 }),
-    devops: useInView(sectionRefs.devops, { once: true, amount: 0.2 }),
-    other: useInView(sectionRefs.other, { once: true, amount: 0.2 }),
+    frontend: useInView(sectionRefs.frontend, { once: true, amount: 0.1 }),
+    backend: useInView(sectionRefs.backend, { once: true, amount: 0.1 }),
+    devops: useInView(sectionRefs.devops, { once: true, amount: 0.1 }),
+    other: useInView(sectionRefs.other, { once: true, amount: 0.1 }),
   };
 
-  // Get the border class based on position
-  const getBorderClass = (position: string) => {
-    switch (position) {
-      case "top-left":
-        return "md:border-r md:border-b border-gray-100";
-      case "top-right":
-        return "md:border-b border-gray-100";
-      case "bottom-left":
-        return "md:border-r border-gray-100";
-      case "bottom-right":
-      default:
-        return "";
-    }
+  // Get the appropriate background and border styles based on position
+  const getSectionStyles = (position: string, category: string) => {
+    // Base styles all sections will have
+    const baseStyles = "rounded-2xl overflow-hidden shadow-lg";
+
+    // Add subtle gradient background based on category color for dark theme
+    const colorMap = {
+      backend: "from-blue-900/20",
+      frontend: "from-pink-900/20",
+      devops: "from-indigo-900/20",
+      other: "from-amber-900/20",
+    };
+
+    // Return combined classes
+    return `${baseStyles} bg-gradient-to-br ${
+      colorMap[category as keyof typeof colorMap]
+    } to-gray-900/5 backdrop-blur-sm`;
   };
 
   return (
@@ -106,12 +110,15 @@ const SkillsSectionComponent: React.FC<SectionProps> = ({ sectionRef }) => {
       fullHeight={true}
       sectionRef={sectionRef}
     >
-      <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-4 md:gap-4 lg:gap-7 max-w-6xl mx-auto p-2 sm:p-3 md:p-3 lg:p-4">
         {sections.map((section) => (
           <motion.div
             key={section.category}
             ref={sectionRefs[section.category]}
-            className={`${getBorderClass(section.position)} p-2 md:p-4`}
+            className={`${getSectionStyles(
+              section.position,
+              section.category
+            )} transition-all duration-500 hover:shadow-xl p-2 sm:p-2 md:p-3 lg:p-5`}
             variants={sectionVariants}
             initial="hidden"
             animate={sectionInView[section.category] ? "visible" : "hidden"}

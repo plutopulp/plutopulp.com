@@ -5,6 +5,7 @@ import SkillCell from "./SkillCell";
 import { Skill, SkillGroupName } from "@/lib/skills";
 import { colors } from "@/lib/colors";
 import { Heading3 } from "../ui/Typography";
+import { motion } from "framer-motion";
 
 interface SkillsSectionProps {
   title: string;
@@ -15,7 +16,7 @@ interface SkillsSectionProps {
 
 /**
  * SkillsSection component that displays a category of skills
- * Arranges SkillCells in a responsive grid layout
+ * Arranges SkillCells in a responsive grid layout with enhanced visual effects
  */
 export const SkillsSection: React.FC<SkillsSectionProps> = ({
   title,
@@ -23,7 +24,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   inView = false,
   category = "other", // Default to "other" if no category is provided
 }) => {
-  // Get category title color with reduced opacity for subtlety
+  // Get category title color with increased opacity for better visibility on dark backgrounds
   const getCategoryColor = () => {
     let baseColor = "";
 
@@ -43,20 +44,61 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         break;
     }
 
-    // Return color with 90% opacity for title
-    return `${baseColor}E6`; // E6 is ~90% opacity in hex
+    // Return full opacity color for better visibility on dark backgrounds
+    return baseColor;
+  };
+
+  // Title animation variants
+  const titleVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  // Grid container animation variants
+  const gridVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.07,
+        delayChildren: 0.2,
+        duration: 0.5,
+      },
+    },
   };
 
   return (
-    <div className="py-4 px-2 md:px-4">
-      <Heading3
-        className="mb-4 md:mb-8 text-center opacity-60"
-        style={{ color: getCategoryColor() }}
+    <div className="py-6 px-3 md:px-6">
+      <motion.div
+        variants={titleVariants}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
       >
-        {title}
-      </Heading3>
+        <Heading3
+          className="mb-6 md:mb-10 text-center font-semibold relative inline-block w-full text-white"
+          style={{ color: getCategoryColor() }}
+        >
+          <span className="relative z-10">{title}</span>
+          <span
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 w-12 rounded-full opacity-70 transition-all duration-500 group-hover:opacity-100 group-hover:w-16"
+            style={{ backgroundColor: getCategoryColor() }}
+          />
+        </Heading3>
+      </motion.div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 justify-items-center">
+      <motion.div
+        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-5 md:gap-6 lg:gap-8 justify-items-center"
+        variants={gridVariants}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+      >
         {skills.map((skill, index) => (
           <SkillCell
             key={skill.name}
@@ -68,7 +110,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
             category={category}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

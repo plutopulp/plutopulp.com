@@ -149,7 +149,7 @@ export const colors = {
   sections: {
     hero: palette.purple.dark,
     about: "#F2F6F8", // Light blue-gray
-    skills: palette.white,
+    skills: palette.purple.dark,
     projects: "#F2F6F8", // Light blue-gray
     contact: palette.purple.dark,
   },
