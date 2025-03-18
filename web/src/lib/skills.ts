@@ -145,35 +145,35 @@ export const skills: Record<SkillId, Skill> = {
     name: "ChartJS",
     icon: "chartjs.svg",
     link: "https://www.chartjs.org/docs/",
-    publish: true, // Good data visualization skill
+    publish: false, // Good data visualization skill
   },
   d3js: {
     id: "d3js",
     name: "D3.js",
     icon: "d3js.svg",
     link: "https://d3js.org/",
-    publish: true, // Advanced data visualization
+    publish: false, // Not enough experience
   },
   figma: {
     id: "figma",
     name: "Figma",
     icon: "figma.svg",
     link: "https://help.figma.com/",
-    publish: true, // Design collaboration skill
+    publish: false, // Not enough experience
   },
   visx: {
     id: "visx",
     name: "visx",
     icon: "visx.png",
     link: "https://airbnb.io/visx/",
-    publish: true, // Advanced React visualization library
+    publish: false, // Too niche
   },
   webpack: {
     id: "webpack",
     name: "Webpack",
     icon: "webpack.svg",
     link: "https://webpack.js.org/concepts/",
-    publish: true, // Advanced bundler knowledge
+    publish: false, // Not significant enough
   },
   yarn: {
     id: "yarn",
@@ -203,7 +203,7 @@ export const skills: Record<SkillId, Skill> = {
     name: "Flask",
     icon: "flask.svg",
     link: "https://flask.palletsprojects.com/",
-    publish: true, // Lightweight Python framework with fair experience
+    publish: false, // Superceded by FastAPI and django
   },
   php: {
     id: "php",
@@ -231,7 +231,7 @@ export const skills: Record<SkillId, Skill> = {
     name: "Celery",
     icon: "celery.svg",
     link: "https://docs.celeryq.dev/",
-    publish: true, // Advanced task queue system
+    publish: false, // Too niche
   },
   postgresql: {
     id: "postgresql",
@@ -259,14 +259,14 @@ export const skills: Record<SkillId, Skill> = {
     name: "RabbitMQ",
     icon: "rabbitmq.svg",
     link: "https://www.rabbitmq.com/documentation.html",
-    publish: true, // Advanced message broker
+    publish: false, // Not enough experience
   },
   spacy: {
     id: "spacy",
     name: "SpaCy",
     icon: "spacy.svg",
     link: "https://spacy.io/usage",
-    publish: true, // Advanced NLP library
+    publish: false, // not too important + not super experienced
   },
   redis: {
     id: "redis",
@@ -280,14 +280,14 @@ export const skills: Record<SkillId, Skill> = {
     name: "SQLAlchemy",
     icon: "sqlalchemy.svg",
     link: "https://docs.sqlalchemy.org/",
-    publish: true, // Advanced ORM for Python
+    publish: false, // Expected knowledge
   },
   poetry: {
     id: "poetry",
     name: "Poetry",
     icon: "poetry.svg",
     link: "https://python-poetry.org/docs/",
-    publish: true, // Modern Python dependency management
+    publish: false, // Expected knowledge
   },
   langchain: {
     id: "langchain",
@@ -366,7 +366,7 @@ export const skills: Record<SkillId, Skill> = {
     name: "Prometheus",
     icon: "prometheus.svg",
     link: "https://prometheus.io/docs/introduction/overview/",
-    publish: true, // Advanced monitoring system
+    publish: false, // Not enough experience
   },
   loki: {
     id: "loki",
