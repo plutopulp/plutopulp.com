@@ -23,16 +23,19 @@ export default function AboutBio({ bgColor = "#ffffff" }: AboutBioProps) {
   return (
     <div className="space-y-6">
       <Paragraph className={paragraphClasses}>
-        Hello! I&apos;m a Franco-Irish fullstack engineer who wandered from
-        physics into programming. I&apos;ve spent the last 4 years building
-        everything from scalable APIs to modular frontends, with strong
-        experience in system architecture and DevOps.
+        I&apos;m a Franco-Irish full-stack engineer based in London with a
+        background in theoretical physics. Over the past four years, I&apos;ve
+        worked across the stack, building APIs, frontends, and infrastructure.
+      </Paragraph>
+      <Paragraph className={paragraphClasses}>
+        I enjoy solving technical problems, whether it’s improving database
+        performance or designing modular frontend components. I also like
+        working across teams to build well-structured and practical solutions.
       </Paragraph>
 
       <Paragraph className={paragraphClasses}>
-        Outside of code, you&apos;ll find me on the mats practicing Brazilian
-        Jiu-Jitsu, overthinking my next chess move, cooking up fiery curries, or
-        making music.
+        Outside of code, you&apos;ll find me on the BJJ mats, overthinking my
+        next chess move, cooking up fiery curries, or making music.
       </Paragraph>
     </div>
   );

@@ -28,7 +28,7 @@ const bjjpathsProject: Project = {
     "The user has a variety of move categories at their disposal (e.g. Submission, Grip, Transition etc...) " +
     "and each category is represented by its own shape and colour. The user connects up moves depending on their opponent's action/reaction so that the map branches off into different move sequences. ",
   technologies: {
-    brief: ["Django", "ReactJS"],
+    brief: ["Django", "ReactJS", "PostgreSQL", "Docker"],
     backend: ["python", "django", "restapi", "postgresql"],
     frontend: ["html", "css", "javascript", "reactjs", "semanticui"],
     devops: ["docker"],
@@ -86,7 +86,7 @@ const taskmaProject: Project = {
     "to further target specific tasks. Check out the demo video on the last slide.",
 
   technologies: {
-    brief: ["Django", "ReactJS"],
+    brief: ["Django", "ReactJS", "PostgreSQL"],
     backend: ["python", "django", "restapi", "postgresql"],
     frontend: ["html", "css", "javascript", "reactjs", "semanticui"],
     devops: ["git", "heroku"],
@@ -171,7 +171,7 @@ const deviculumProject: Project = {
     "Each curriculum can have multiple taxonomy analyses. Check out the demo video on the last slide.",
 
   technologies: {
-    brief: ["Django", "JavaScript"],
+    brief: ["Django", "JavaScript", "PostgreSQL"],
     backend: ["python", "django", "spacy", "postgresql"],
     frontend: ["html", "css", "javascript", "bootstrap", "chartjs", "d3js"],
     devops: ["celery", "rabbitmq", "docker", "linux"],
@@ -221,19 +221,21 @@ const portfolioProject: Project = {
   id: "portfolio",
   title: "Portfolio",
   meta: "My portfolio website",
-  description: "A portfolio website showcasing my projects and skills.",
+  description: `A responsive portfolio website that showcases my development journey and technical expertise. 
+  I designed this site with a focus on clean aesthetics and engaging user experience.
+  I also wanted to have a bit of fun with CSS animations and transitions.`,
   technologies: {
     brief: ["Next.js", "TypeScript", "Tailwind"],
     backend: [],
-    frontend: ["html", "css", "typescript", "reactjs", "tailwind", "nextjs"],
-    devops: ["git", "docker"],
-    other: ["latex"],
+    frontend: ["html", "css", "typescript", "reactjs", "nextjs", "tailwind"],
+    devops: ["docker"],
+    other: [],
   },
   learnings: ["CSS animations", "Responsive Design", "Next.js 14"],
   anchors: [
     {
       name: "Source",
-      href: "https://github.com/plutopulp/portfolio-dev",
+      href: "https://github.com/plutopulp/plutopulp.com",
       type: "github",
     },
     {
@@ -242,13 +244,13 @@ const portfolioProject: Project = {
       type: "globe",
     },
   ],
-  image: `${projectImageDirs.portfolio}/portfolio.png`,
+  image: `${projectImageDirs.portfolio}/landing-cropped.png`,
   sliderMedia: [
     {
       source: `${projectImageDirs.portfolio}/landing.png`,
       type: "image",
       padding: "5%",
-      caption: "Landing page created with CSS animations",
+      caption: "Landing page created with CSS keyframe animations",
     },
   ],
 };
@@ -256,7 +258,7 @@ const portfolioProject: Project = {
 // Combine all projects into a single array
 export const projectsData: Project[] = [
   bjjpathsProject,
-  taskmaProject,
-  deviculumProject,
   portfolioProject,
+  deviculumProject,
+  taskmaProject,
 ];

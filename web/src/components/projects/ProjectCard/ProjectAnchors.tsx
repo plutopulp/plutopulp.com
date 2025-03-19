@@ -2,6 +2,7 @@
 import { Anchor } from "@/types/project";
 import { Button } from "@/components/ui/Button";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { GitHubIcon } from "@/components/icons/GitHubIcon";
 
 interface ProjectAnchorsProps {
   anchors: Anchor[];
@@ -12,6 +13,12 @@ export default function ProjectAnchors({ anchors }: ProjectAnchorsProps) {
   const validAnchors = anchors.filter((anchor) => anchor.href);
 
   if (validAnchors.length === 0) return null;
+
+  // Icon mapping object
+  const iconMap = {
+    globe: <GlobeAltIcon className="w-4 h-4" />,
+    github: <GitHubIcon className="w-4 h-4" />,
+  };
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -25,13 +32,9 @@ export default function ProjectAnchors({ anchors }: ProjectAnchorsProps) {
         >
           <Button
             variant={anchor.type === "globe" ? "primary" : "outline"}
-            size="sm"
+            size="md"
             className="inline-flex items-center"
-            rightIcon={
-              anchor.type === "globe" ? (
-                <GlobeAltIcon className="w-4 h-4" />
-              ) : undefined
-            }
+            rightIcon={iconMap[anchor.type]}
           >
             {anchor.name}
           </Button>

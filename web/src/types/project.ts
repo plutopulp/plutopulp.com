@@ -14,7 +14,7 @@ export interface Technology {
 export interface Anchor {
   name: string;
   href: string | null;
-  type: string;
+  type: "github" | "globe";
   color?: string;
 }
 

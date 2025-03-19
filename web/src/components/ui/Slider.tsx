@@ -16,7 +16,7 @@ const Slide = ({ item, index }: { item: SliderMedia; index: number }) => {
   const objectContainClass = "object-contain";
   if (item.type === "image") {
     return (
-      <div className={`${aspectVideoClass} bg-white`}>
+      <div className={`${aspectVideoClass} bg-gray-800`}>
         <Image
           src={item.source}
           alt={item.caption}
@@ -33,7 +33,7 @@ const Slide = ({ item, index }: { item: SliderMedia; index: number }) => {
       <video
         src={item.source}
         controls
-        className={`w-full h-full ${objectContainClass}`}
+        className={`w-full h-full bg-gray-800 ${objectContainClass}`}
       />
     </div>
   );
