@@ -124,7 +124,7 @@ export const skills: Record<SkillId, Skill> = {
     name: "Styled Components",
     icon: "styledcomponents.svg",
     link: "https://styled-components.com/docs",
-    publish: true, // CSS-in-JS used extensively
+    publish: false, // not too important
   },
   semanticui: {
     id: "semanticui",
